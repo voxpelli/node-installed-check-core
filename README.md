@@ -1,6 +1,6 @@
 # Installed Check Core
 
-Can check that the installed modules fulfill the requirements of `package.json`, both when it comes to the version ranges of the modules themselves and when it comes to the version range of their engine requirements.
+Checks that the installed modules fulfill the requirements of `package.json`, both when it comes to the version ranges of the modules themselves and when it comes to the version range of their engine requirements.
 
 Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/installed-check)
 
