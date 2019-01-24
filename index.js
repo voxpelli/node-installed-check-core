@@ -1,7 +1,9 @@
 'use strict';
 
-const readJson = require('read-package-json');
-const readInstalled = require('read-installed');
+const { promisify } = require('util');
+
+const readJson = promisify(require('read-package-json'));
+const readInstalled = promisify(require('read-installed'));
 const semver = require('semver');
 const semverIntersect = require('@voxpelli/semver-set').intersect;
 
@@ -79,31 +81,21 @@ const checkEngineVersions = function (engines, requiredDependencies, installedDe
   return { errors, warnings, notices };
 };
 
-const installedCheck = function (path, options) {
+const installedCheck = function (path = '.', options = {}) {
   if (typeof path === 'object') {
     return installedCheck(undefined, path);
   }
 
-  if (!path) { path = '.'; }
-  if (!options) { options = {}; }
-
-  let packagePromise = new Promise(function (resolve, reject) {
-    readJson(path + '/package.json', function (err, data) {
-      if (err) { return reject(err); }
-      resolve(data);
-    });
-  });
-
-  let installedPromise = new Promise(function (resolve, reject) {
-    readInstalled(path, { dev: true, depth: 1 }, function (err, data) {
-      if (err) { return reject(err); }
-      resolve(data);
-    });
-  });
+  const {
+    engineCheck,
+    engineIgnores,
+    engineNoDev,
+    noVersionCheck
+  } = options;
 
   return Promise.all([
-    packagePromise,
-    installedPromise
+    readJson(path + '/package.json'),
+    readInstalled(path, { dev: true, depth: 1 })
   ])
     .then(result => {
       const mainPackage = result[0];
@@ -115,17 +107,17 @@ const installedCheck = function (path, options) {
       let warnings = [];
       let notices = [];
 
-      if (!options.noVersionCheck) {
+      if (!noVersionCheck) {
         const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
 
         errors = errors.concat(packageResult.errors);
         notices = notices.concat(packageResult.notices);
       }
 
-      if (options.engineCheck) {
-        const dependencies = Object.assign({}, options.engineNoDev ? mainPackage.dependencies : requiredDependencies);
+      if (engineCheck) {
+        const dependencies = Object.assign({}, engineNoDev ? mainPackage.dependencies : requiredDependencies);
 
-        (options.engineIgnores || []).forEach(name => {
+        (engineIgnores || []).forEach(name => {
           delete dependencies[name];
         });
 
