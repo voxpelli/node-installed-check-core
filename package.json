@@ -5,7 +5,7 @@
   "homepage": "http://github.com/voxpelli/node-installed-check-core",
   "repository": {
     "type": "git",
-    "url": "git://github.com/voxpelli/node-installed-check.git"
+    "url": "git://github.com/voxpelli/node-installed-check-core.git"
   },
   "main": "index.js",
   "scripts": {
