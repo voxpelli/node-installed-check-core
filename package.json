@@ -9,7 +9,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "dependency-check": "JS_FILES=\"*.js\" && dependency-check . $JS_FILES && dependency-check . $JS_FILES --unused --no-dev",
+    "dependency-check": "JS_FILES=\"*.js lib/*.js\" && dependency-check . $JS_FILES && dependency-check . $JS_FILES --unused --no-dev",
     "test": "eslint . && npm run --silent dependency-check"
   },
   "keywords": [],
