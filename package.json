@@ -1,18 +1,16 @@
 {
-  "name": "installed-check",
+  "name": "installed-check-core",
   "version": "2.2.0",
   "description": "Checks that all dependencies in your package.json have supported versions installed",
-  "homepage": "http://github.com/voxpelli/node-installed-check",
+  "homepage": "http://github.com/voxpelli/node-installed-check-core",
   "repository": {
     "type": "git",
     "url": "git://github.com/voxpelli/node-installed-check.git"
   },
   "main": "index.js",
-  "bin": {
-    "installed-check": "cli.js"
-  },
   "scripts": {
-    "test": "semistandard && node cli.js -e"
+    "dependency-check": "JS_FILES=\"*.js\" && dependency-check . $JS_FILES && dependency-check . $JS_FILES --unused --no-dev",
+    "test": "semistandard && npm run --silent dependency-check"
   },
   "keywords": [],
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
@@ -22,13 +20,12 @@
   },
   "dependencies": {
     "@voxpelli/semver-set": "^1.0.1",
-    "chalk": "^2.3.0",
-    "dashdash": "^1.14.0",
     "read-installed": "^4.0.3",
     "read-package-json": "^2.0.3",
     "semver": "^5.1.0"
   },
   "devDependencies": {
+    "dependency-check": "^3.3.0",
     "semistandard": "13.0.1"
   }
 }
