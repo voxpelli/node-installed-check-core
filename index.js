@@ -81,7 +81,7 @@ const checkEngineVersions = function (engines, requiredDependencies, installedDe
   return { errors, warnings, notices };
 };
 
-const installedCheck = function (path = '.', options = {}) {
+const installedCheck = async function (path = '.', options = {}) {
   if (typeof path === 'object') {
     return installedCheck(undefined, path);
   }
@@ -93,47 +93,47 @@ const installedCheck = function (path = '.', options = {}) {
     noVersionCheck
   } = options;
 
-  return Promise.all([
+  const [
+    mainPackage,
+    { dependencies: installedDependencies }
+  ] = await Promise.all([
     readJson(path + '/package.json'),
     readInstalled(path, { dev: true, depth: 1 })
-  ])
-    .then(result => {
-      const mainPackage = result[0];
-      const requiredDependencies = Object.assign({}, mainPackage.dependencies, mainPackage.devDependencies);
-      const installedDependencies = result[1].dependencies;
-      const optionalDependencies = Object.assign({}, mainPackage.optionalDependencies);
+  ]);
 
-      let errors = [];
-      let warnings = [];
-      let notices = [];
+  const requiredDependencies = Object.assign({}, mainPackage.dependencies, mainPackage.devDependencies);
+  const optionalDependencies = Object.assign({}, mainPackage.optionalDependencies);
 
-      if (!noVersionCheck) {
-        const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
+  let errors = [];
+  let warnings = [];
+  let notices = [];
 
-        errors = errors.concat(packageResult.errors);
-        notices = notices.concat(packageResult.notices);
-      }
+  if (!noVersionCheck) {
+    const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
 
-      if (engineCheck) {
-        const dependencies = Object.assign({}, engineNoDev ? mainPackage.dependencies : requiredDependencies);
+    errors = errors.concat(packageResult.errors);
+    notices = notices.concat(packageResult.notices);
+  }
 
-        (engineIgnores || []).forEach(name => {
-          delete dependencies[name];
-        });
+  if (engineCheck) {
+    const dependencies = Object.assign({}, engineNoDev ? mainPackage.dependencies : requiredDependencies);
 
-        const engineResult = checkEngineVersions(
-          mainPackage.engines || {},
-          dependencies,
-          installedDependencies
-        );
-
-        errors = errors.concat(engineResult.errors);
-        warnings = warnings.concat(engineResult.warnings);
-        notices = notices.concat(engineResult.notices);
-      }
-
-      return { errors, warnings, notices };
+    (engineIgnores || []).forEach(name => {
+      delete dependencies[name];
     });
+
+    const engineResult = checkEngineVersions(
+      mainPackage.engines || {},
+      dependencies,
+      installedDependencies
+    );
+
+    errors = errors.concat(engineResult.errors);
+    warnings = warnings.concat(engineResult.warnings);
+    notices = notices.concat(engineResult.notices);
+  }
+
+  return { errors, warnings, notices };
 };
 
 module.exports = installedCheck;
