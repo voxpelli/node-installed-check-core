@@ -8,18 +8,13 @@ const readInstalled = promisify(require('read-installed'));
 const checkPackageVersions = require('./lib/check-package-versions');
 const checkEngineVersions = require('./lib/check-engine-versions');
 
-const installedCheck = async function (path = '.', options = {}) {
-  if (typeof path === 'object') {
-    return installedCheck(undefined, path);
-  }
-
-  const {
-    engineCheck,
-    engineIgnores,
-    engineNoDev,
-    noVersionCheck
-  } = options;
-
+const installedCheck = async function ({
+  path = '.',
+  engineCheck,
+  engineIgnores,
+  engineNoDev,
+  versionCheck
+} = {}) {
   const [
     mainPackage,
     { dependencies: installedDependencies }
@@ -35,7 +30,7 @@ const installedCheck = async function (path = '.', options = {}) {
   let warnings = [];
   let notices = [];
 
-  if (!noVersionCheck) {
+  if (versionCheck) {
     const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
 
     errors = errors.concat(packageResult.errors);

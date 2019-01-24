@@ -1,45 +1,21 @@
-# Installed Check
+# Installed Check Core
 
-Checks that the installed modules comply fulfill the requirements of package.json.
+Can check that the installed modules fulfill the requirements of `package.json`, both when it comes to the version ranges of the modules themselves and when it comes to the version range of their engine requirements.
 
-By default checks module versions but can optionally also check engine requirements.
+Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/installed-check)
 
 ## Usage
 
-### Command line
+### Simple
 
 ```bash
-npm install -g installed-check
-```
-
-Then run it at the root of your project to validate the installed dependencies:
-
-```bash
-installed-check
-```
-
-### As npm script
-
-```bash
-npm install --save-dev installed-check
-```
-
-```
-"scripts": {
-  "test": "installed-check"
-}
-```
-
-### Programmatic use
-
-```bash
-npm install --save installed-check
+yarn add installed-check-core
 ```
 
 ```javascript
-var installedCheck = require('installed-check');
+const installedCheck = require('installed-check-core');
 
-installedCheck().then(result => {
+installedCheck({ versionCheck: true }).then(result => {
   if (result.errors.length) {
     console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
   }
@@ -49,16 +25,18 @@ installedCheck().then(result => {
 ## Syntax
 
 ```javascript
-installedCheck('path/to/module', {
-  engineCheck: true
-})
-  .then(result => ...)
+const { errors, warnings, notices } = await installedCheck({
+  path: 'path/to/module',
+  engineCheck: true,
+  engineIgnores: ['foo'],
+  engineNoDev: true,
+  versionCheck: true,
+});
 ```
 
 ### Parameters
 
-1. `path` – optional string path to the module to do the check in. Defaults to `.`
-2. `options` – optional object containing additional options for the module
+1. `options` – optional object containing additional options for the module
 
 ### Returns
 
@@ -74,13 +52,8 @@ A Promise resolving to:
 
 ## Options
 
-* `engineCheck` / `--engine-check` / `-e` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the package.json and suggest an alternative requirement if the installed modules don't comply.
-* `engineIgnores` / `--engine-ignore` / `-i` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
-* `engineNoDev` / `--engine-no-dev` / `-d` – if set then dev dependencies won't be included in the engine check.
-* `noVersionCheck` / `--no-version-check` / `-n` – if set `installed-check` will not check that the installed modules comply with the version requirements set for it the package.json.
-
-### Additional command line options
-
-* `--help` / `-h` – prints all available flags
-* `--strict` / `-s` – treats warnings as errors
-* `--verbose` / `-v` – prints warnings and notices
+* `path` – defaults to `.`. Specifies the path to where the target to be checked can be found, with its `package.json` being there and its `n ode_modules` as well.
+* `engineCheck` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
+* `engineIgnores` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
+* `engineNoDev` – if set then dev dependencies won't be included in the engine check.
+* `versionCheck` – if set `installed-check` will check that the installed modules comply with the version requirements set for them the `package.json`.

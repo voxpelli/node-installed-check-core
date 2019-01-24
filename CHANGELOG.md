@@ -4,8 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 3.0.0 - 2019-01-24
 
-* **Feature**: Split this core module out of the CLI module
 * **Breaking change:** Now requires at least Node.js 8.x (somewhat following the LTS of Node.js itself)
+* **Breaking change:** Does not default to do version checking anymore. Requires new `versionCheck` parameter to do that.
+* **Breaking change:** Only takes a single argument now. `path` is moved to a key on that `options` object.
+* **Feature**: Split this core module out of the CLI module
 
 ## 2.2.0 - 2018-07-26
 
