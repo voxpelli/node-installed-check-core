@@ -15,6 +15,10 @@ const installedCheck = async function ({
   engineNoDev,
   versionCheck
 } = {}) {
+  if (!engineCheck && !versionCheck) {
+    throw new Error('Expected to run at least one check. Add engineCheck and/or versionCheck');
+  }
+
   const [
     mainPackage,
     { dependencies: installedDependencies }
