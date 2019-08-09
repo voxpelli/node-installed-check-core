@@ -2,7 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.0.0 - 2019-01-24
+## 3.0.0 - 2019-08-09
+
+* **Breaking change:** Now requires at least Node.js 10.x (somewhat following the LTS of Node.js itself)
+
+## 3.0.0-0 - 2019-01-24
 
 * **Breaking change:** Now requires at least Node.js 8.x (somewhat following the LTS of Node.js itself)
 * **Breaking change:** Does not default to do version checking anymore. Requires new `versionCheck` parameter to do that.
