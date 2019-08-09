@@ -12,6 +12,7 @@
     "check:dependency-check": "dependency-check *.js 'lib/**/*.js' --no-dev",
     "check:installed-check": "installed-check -e -i eslint",
     "check:eslint": "eslint .",
+    "check:typescript": "tsc",
     "test": "run-p check:*"
   },
   "keywords": [],
