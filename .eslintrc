@@ -2,7 +2,6 @@
   "extends": "semistandard",
   "root": true,
   "rules": {
-    "valid-jsdoc": 2,
     "no-var": 2
   }
 }
