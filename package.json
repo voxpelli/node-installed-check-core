@@ -22,10 +22,10 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^1.0.1",
+    "@voxpelli/semver-set": "^2.0.0-1",
     "read-installed": "^4.0.3",
     "read-package-json": "^2.0.3",
-    "semver": "^5.1.0"
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@types/node": "^12.7.1",
