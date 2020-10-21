@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.0 - 2020-10-21
+
+* **Breaking change:** Now requires at least Node.js 12.x (somewhat following the LTS of Node.js itself)
+* **Dependencies**: Moved to newer [`@voxpelli/semver-set`](https://www.npmjs.com/package/@voxpelli/semver-set) module, which has fewer sub-dependencies and is now typed
+* **Dependencies**: Created new [`list-installed`](https://www.npmjs.com/package/list-installed) module, replacing [`read-installed`](https://www.npmjs.com/package/read-installed) in this module, making it natively async as well as adds types
+* **Dependencies**: Moved to [`read-pkg`](https://www.npmjs.com/package/read-pkg) instead of [`read-package-json`](https://www.npmjs.com/package/read-package-json), making it natively async as well as adds types
+
+
 ## 3.0.0 - 2019-08-09
 
 * **Breaking change:** Now requires at least Node.js 10.x (somewhat following the LTS of Node.js itself)

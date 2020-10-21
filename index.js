@@ -4,7 +4,7 @@
 'use strict';
 
 const readPkg = require('read-pkg');
-const { listInstalled } = require('./lib/list-installed');
+const { listInstalled } = require('list-installed');
 
 const checkPackageVersions = require('./lib/check-package-versions');
 const checkEngineVersions = require('./lib/check-engine-versions');
