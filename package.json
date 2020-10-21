@@ -13,7 +13,8 @@
     "check:installed-check": "installed-check -e -i eslint",
     "check:eslint": "eslint .",
     "check:typescript": "tsc",
-    "test": "run-p check:*"
+    "check": "run-p check:*",
+    "test": "run-s check"
   },
   "keywords": [],
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
