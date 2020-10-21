@@ -8,12 +8,20 @@
     "url": "git://github.com/voxpelli/node-installed-check-core.git"
   },
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "check:dependency-check": "dependency-check *.js 'lib/**/*.js' --no-dev",
-    "check:installed-check": "installed-check -e -i eslint",
-    "check:eslint": "eslint .",
-    "check:typescript": "tsc",
-    "check": "run-p check:*",
+    "build:0": "run-s clean",
+    "build:1-declaration": "tsc -p declaration.tsconfig.json",
+    "build:2-add-ignores": "ts-ignore-import '**/*.d.ts'",
+    "build": "run-s build:*",
+    "check:dependency-check": "dependency-check *.js 'test/**/*.js' --no-dev",
+    "check:installed-check": "installed-check -i eslint",
+    "check:lint": "eslint .",
+    "check:tsc": "tsc",
+    "check": "run-s clean && run-p check:*",
+    "clean:declarations": "rm -rf $(find . -maxdepth 2 -type f -name '*.d.ts')",
+    "clean": "run-p clean:*",
+    "prepublishOnly": "run-s build",
     "test": "run-s check"
   },
   "keywords": [],
@@ -25,12 +33,12 @@
   "dependencies": {
     "@voxpelli/semver-set": "^2.0.0-1",
     "list-installed": "^1.0.0",
-    "read-installed": "^4.0.3",
     "read-pkg": "^5.2.0",
     "semver": "^7.3.2"
   },
   "devDependencies": {
-    "@types/node": "^12.7.1",
+    "@hdsydsvenskan/ts-ignore-import": "^2.0.0",
+    "@types/node": "^12.19.0",
     "@types/semver": "^7.3.4",
     "@voxpelli/eslint-config": "6.0.0",
     "dependency-check": "^4.1.0",
@@ -48,6 +56,6 @@
     "installed-check": "^2.2.0",
     "npm-run-all": "^4.1.5",
     "type-fest": "^0.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "^4.0.3"
   }
 }
