@@ -3,16 +3,8 @@
 
 'use strict';
 
-const { promisify } = require('util');
-
-/** @typedef {import('./lib/types').PackageJson} PackageJson */
-
-/** @type {(filename: string, logFunction?: function, strict?: boolean) => Promise<PackageJson>} */
-const readJson = promisify(require('read-package-json'));
-
-/** @typedef {{ dependencies: { [moduleName: string]: PackageJson }}} ReadInstalledResponse */
-/** @type {(path: string, { dev: boolean, depth: number }) => Promise<ReadInstalledResponse>} */
-const readInstalled = promisify(require('read-installed'));
+const readPkg = require('read-pkg');
+const { listInstalled } = require('./lib/list-installed');
 
 const checkPackageVersions = require('./lib/check-package-versions');
 const checkEngineVersions = require('./lib/check-engine-versions');
@@ -47,10 +39,10 @@ const installedCheck = async function ({
 
   const [
     mainPackage,
-    { dependencies: installedDependencies }
+    installedDependencies,
   ] = await Promise.all([
-    readJson(path + '/package.json'),
-    readInstalled(path, { dev: true, depth: 1 })
+    readPkg({ cwd: path }),
+    listInstalled(path),
   ]);
 
   const requiredDependencies = Object.assign({}, mainPackage.dependencies || {}, mainPackage.devDependencies || {});
