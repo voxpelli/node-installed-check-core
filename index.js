@@ -17,13 +17,17 @@ const checkEngineVersions = require('./lib/check-engine-versions');
  */
 
 /**
+ * @typedef InstalledCheckOptions
+ * @property {string|undefined} [path]
+ * @property {boolean|undefined} engineCheck
+ * @property {string[]|undefined} [engineIgnores]
+ * @property {boolean|undefined} [engineNoDev]
+ * @property {boolean|undefined} versionCheck
+ */
+
+/**
  * @throws {Error}
- * @param {object} options
- * @param {string} [options.path]
- * @param {boolean} options.engineCheck
- * @param {string[]} options.engineIgnores
- * @param {boolean} options.engineNoDev
- * @param {boolean} options.versionCheck
+ * @param {InstalledCheckOptions} options
  * @returns {Promise<InstalledCheckResult>}
  */
 const installedCheck = async function ({
