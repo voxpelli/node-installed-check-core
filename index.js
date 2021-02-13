@@ -69,9 +69,9 @@ const installedCheck = async function ({
   if (engineCheck) {
     const dependencies = Object.assign({}, engineNoDev ? mainPackage.dependencies : requiredDependencies);
 
-    (engineIgnores || []).forEach(name => {
+    for (const name of (engineIgnores || [])) {
       delete dependencies[name];
-    });
+    }
 
     const engineResult = checkEngineVersions(
       mainPackage.engines || {},
