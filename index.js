@@ -62,8 +62,8 @@ const installedCheck = async function ({
   if (versionCheck) {
     const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
 
-    errors = errors.concat(packageResult.errors);
-    notices = notices.concat(packageResult.notices);
+    errors = [...errors, ...packageResult.errors];
+    notices = [...notices, ...packageResult.notices];
   }
 
   if (engineCheck) {
@@ -79,9 +79,9 @@ const installedCheck = async function ({
       installedDependencies
     );
 
-    errors = errors.concat(engineResult.errors);
-    warnings = warnings.concat(engineResult.warnings);
-    notices = notices.concat(engineResult.notices);
+    errors = [...errors, ...engineResult.errors];
+    warnings = [...warnings, ...engineResult.warnings];
+    notices = [...notices, ...engineResult.notices];
   }
 
   return { errors, warnings, notices };
