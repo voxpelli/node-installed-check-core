@@ -1,0 +1,8 @@
+{
+  "engines": { "node": ">=8.0.0" },
+  "dependencies": {
+    "invalid-dependency-definition": "",
+    "invalid-engine": "^1.0.0",
+    "invalid-module-version": "^1.0.0"
+  }
+}

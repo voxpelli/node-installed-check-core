@@ -5,6 +5,7 @@
 
 const readPkg = require('read-pkg');
 const { listInstalled } = require('list-installed');
+const VError = require('verror');
 
 const checkPackageVersions = require('./lib/check-package-versions');
 const checkEngineVersions = require('./lib/check-engine-versions');
@@ -30,13 +31,17 @@ const checkEngineVersions = require('./lib/check-engine-versions');
  * @param {InstalledCheckOptions} options
  * @returns {Promise<InstalledCheckResult>}
  */
-const installedCheck = async function ({
-  path = '.',
-  engineCheck,
-  engineIgnores,
-  engineNoDev,
-  versionCheck
-}) {
+const installedCheck = async function (options) {
+  if (!options) throw new Error('Expected options to be set');
+
+  const {
+    path = '.',
+    engineCheck = false,
+    engineIgnores = [],
+    engineNoDev = false,
+    versionCheck = false,
+  } = options;
+
   if (!engineCheck && !versionCheck) {
     throw new Error('Expected to run at least one check. Add engineCheck and/or versionCheck');
   }
@@ -45,8 +50,8 @@ const installedCheck = async function ({
     mainPackage,
     installedDependencies,
   ] = await Promise.all([
-    readPkg({ cwd: path }),
-    listInstalled(path),
+    readPkg({ cwd: path }).catch(err => { throw new VError(err, 'Failed to read package.json'); }),
+    listInstalled(path).catch(err => { throw new VError(err, 'Failed to list installed modules'); }),
   ]);
 
   const requiredDependencies = Object.assign({}, mainPackage.dependencies || {}, mainPackage.devDependencies || {});
@@ -56,14 +61,12 @@ const installedCheck = async function ({
   let errors = [];
   /** @type {string[]} */
   let warnings = [];
-  /** @type {string[]} */
-  let notices = [];
 
   if (versionCheck) {
     const packageResult = checkPackageVersions(requiredDependencies, installedDependencies, optionalDependencies);
 
     errors = [...errors, ...packageResult.errors];
-    notices = [...notices, ...packageResult.notices];
+    warnings = [...warnings, ...packageResult.warnings];
   }
 
   if (engineCheck) {
@@ -81,10 +84,9 @@ const installedCheck = async function ({
 
     errors = [...errors, ...engineResult.errors];
     warnings = [...warnings, ...engineResult.warnings];
-    notices = [...notices, ...engineResult.notices];
   }
 
-  return { errors, warnings, notices };
+  return { errors, warnings, notices: [] };
 };
 
 module.exports = installedCheck;

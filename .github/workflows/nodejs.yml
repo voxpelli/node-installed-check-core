@@ -1,10 +1,10 @@
 env: {}
 
-# FILE GENERATED WITH: npx ghat voxpelli/ghatemplates/lint
+# FILE GENERATED WITH: npx ghat voxpelli/ghatemplates/nodejs
 # SOURCE: https://github.com/voxpelli/ghatemplates
-# OPTIONS: {"set":["jobs.test.strategy.matrix.node_version=[12]"]}
+# OPTIONS: {"set":["jobs.test.strategy.matrix.node_version=[12,14,15]"]}
 
-name: Linting
+name: Node CI
 on:
   - push
   - pull_request
@@ -17,8 +17,11 @@ jobs:
       matrix:
         node_version:
           - 12
+          - 14
+          - 15
         os:
           - ubuntu-latest
+          - windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node_version }}
@@ -26,4 +29,4 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - run: npm install
-      - run: npm run check
+      - run: npm run test-ci
