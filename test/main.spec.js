@@ -63,8 +63,9 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           'errors': [
+            "invalid-dependency-definition: Dependency is not installed. Can't check its version",
             'invalid-module-version: Invalid version, expected a ^1.0.0',
-            "invalid-dependency-definition: Dependency is not installed. Can't check its engine requirement.",
+            "invalid-dependency-definition: Dependency is not installed. Can't check its engine requirement",
             'invalid-engine: Narrower "node" engine requirement needed: >=10.0.0',
             'Combined "node" engine requirement needs to be narrower: >=10.0.0',
           ],

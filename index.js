@@ -79,7 +79,8 @@ const installedCheck = async function (options) {
     const engineResult = checkEngineVersions(
       mainPackage.engines || {},
       dependencies,
-      installedDependencies
+      installedDependencies,
+      optionalDependencies
     );
 
     errors = [...errors, ...engineResult.errors];
