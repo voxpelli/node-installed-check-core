@@ -67,12 +67,20 @@ describe('installedCheck()', () => {
             'invalid-module-version: Invalid version, expected a ^1.0.0',
             "invalid-dependency-definition: Dependency is not installed. Can't check its engine requirement",
             'invalid-engine: Narrower "node" engine requirement needed: >=10.0.0',
+            'invalid-engine: Narrower "abc" engine requirement needed: >=1.0.0',
             'Combined "node" engine requirement needs to be narrower: >=10.0.0',
+            'Combined "abc" engine requirement needs to be narrower: >=1.0.0',
           ],
           notices: [],
           warnings: [
             "invalid-dependency-definition: Target version is empty. Can't match against dependency version",
+            "invalid-engine: Target version is not a semantic versioning range. Can't match against dependency version",
+            'Empty engine definition: bar',
+            'Empty engine definition: abc',
+            'invalid-engine: Missing engine: bar',
             'invalid-module-version: Missing engine: node',
+            'invalid-module-version: Missing engine: bar',
+            'invalid-module-version: Missing engine: abc',
           ]
         });
     });
@@ -87,6 +95,22 @@ describe('installedCheck()', () => {
           'errors': [
             'foo: Narrower "node" engine requirement needed: >=8.0.0',
             'Combined "node" engine requirement needs to be narrower: >=8.0.0',
+          ],
+          notices: [],
+          warnings: []
+        });
+    });
+
+    it('should not suggest an engine configuration when engines are incompatible', async () => {
+      await installedCheck({
+        path: path.resolve(__dirname, 'fixtures/incompatible-engines'),
+        engineCheck: true,
+        versionCheck: false
+      })
+        .should.eventually.deep.equal({
+          'errors': [
+            'foo: Incompatible "node" engine requirement: <6.0.0',
+            'Incompatible combined "node" requirements.',
           ],
           notices: [],
           warnings: []

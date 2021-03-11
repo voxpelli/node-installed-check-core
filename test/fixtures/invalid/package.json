@@ -1,8 +1,12 @@
 {
-  "engines": { "node": ">=8.0.0" },
+  "engines": {
+    "node": ">=8.0.0",
+    "bar": "",
+    "abc": ""
+  },
   "dependencies": {
     "invalid-dependency-definition": "",
-    "invalid-engine": "^1.0.0",
+    "invalid-engine": "yay",
     "invalid-module-version": "^1.0.0"
   }
 }
