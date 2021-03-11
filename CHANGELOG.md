@@ -1,6 +1,13 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+## 5.0.0-0 - 2021-03-11
+
+* **Possibly breaking change:** The engine checks are now driven by `@voxpelli/semver-set` version `3.x`, which is rewritten from scratch, only keeping the tests and the exported API from before. This to fix the license of the project as the author of the original project never assigned a license to his code + it fixed a bug in the process.
+* **Possibly breaking change:** As a result of new tests for edge cases, some alterations was made to what was warnings or notices as well as when errors was thrown. Thanks to tests this can now be guaranteed over time
+* **Stability:** Added tests to ensure consistent functionality over time as well as in edge cases
 
 ## 4.0.0 - 2020-10-21
 
