@@ -50,8 +50,8 @@ const installedCheck = async function (options) {
     mainPackage,
     installedDependencies,
   ] = await Promise.all([
-    readPkg({ cwd: path }).catch(err => { throw new VError(err, 'Failed to read package.json'); }),
-    listInstalled(path).catch(err => { throw new VError(err, 'Failed to list installed modules'); }),
+    readPkg({ cwd: path }).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to read package.json'); }),
+    listInstalled(path).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to list installed modules'); }),
   ]);
 
   const requiredDependencies = Object.assign({}, mainPackage.dependencies || {}, mainPackage.devDependencies || {});
