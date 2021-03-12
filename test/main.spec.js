@@ -27,7 +27,11 @@ describe('installedCheck()', () => {
     });
 
     it('should error on missing package.json file', async () => {
-      await installedCheck({ path: __dirname, engineCheck: true, versionCheck: true })
+      await installedCheck({
+        path: path.resolve(__dirname, 'fixtures/missing-package-json'),
+        engineCheck: true,
+        versionCheck: true
+      })
         .should.be.rejectedWith(/Failed to read package\.json/);
     });
 
