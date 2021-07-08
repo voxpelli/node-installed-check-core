@@ -54,9 +54,9 @@
   },
   "devDependencies": {
     "@hdsydsvenskan/ts-ignore-import": "^2.0.0",
-    "@types/chai": "^4.2.18",
+    "@types/chai": "^4.2.21",
     "@types/chai-as-promised": "^7.1.4",
-    "@types/mocha": "^8.2.2",
+    "@types/mocha": "^8.2.3",
     "@types/node": "^12.20.15",
     "@types/semver": "^7.3.6",
     "@types/verror": "^1.10.4",
