@@ -3,7 +3,6 @@
 
 'use strict';
 
-const readPkg = require('read-pkg');
 const { listInstalled } = require('list-installed');
 const VError = require('verror');
 
@@ -50,7 +49,7 @@ const installedCheck = async function (options) {
     mainPackage,
     installedDependencies,
   ] = await Promise.all([
-    readPkg({ cwd: path }).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to read package.json'); }),
+    (await import('read-pkg')).readPackage({ cwd: path }).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to read package.json'); }),
     listInstalled(path).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to list installed modules'); }),
   ]);
 
