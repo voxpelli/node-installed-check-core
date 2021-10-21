@@ -4,7 +4,7 @@
 'use strict';
 
 const { listInstalled } = require('list-installed');
-const VError = require('verror');
+const { ErrorWithCause } = require('pony-cause');
 
 const checkPackageVersions = require('./lib/check-package-versions');
 const checkEngineVersions = require('./lib/check-engine-versions');
@@ -49,8 +49,12 @@ const installedCheck = async function (options) {
     mainPackage,
     installedDependencies,
   ] = await Promise.all([
-    (await import('read-pkg')).readPackage({ cwd: path }).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to read package.json'); }),
-    listInstalled(path).catch(/** @param {Error} err */ err => { throw new VError(err, 'Failed to list installed modules'); }),
+    (await import('read-pkg')).readPackage({ cwd: path }).catch(/** @param {Error} err */ err => {
+      throw new ErrorWithCause('Failed to read package.json', { cause: err });
+    }),
+    listInstalled(path).catch(/** @param {Error} err */ err => {
+      throw new ErrorWithCause('Failed to list installed modules', { cause: err });
+    }),
   ]);
 
   const requiredDependencies = Object.assign({}, mainPackage.dependencies || {}, mainPackage.devDependencies || {});
