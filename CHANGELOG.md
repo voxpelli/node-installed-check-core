@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.0 - 2021-11-14
+
+All changes from previous pre-releases:
+
+* **Breaking change:** Now requires Node.js version matching `^12.20.0 || ^14.13.1 || >=16.0.0`, to ensure compatibility with ESM-based dependencies
+* **Possibly breaking change:** The engine checks are now driven by `@voxpelli/semver-set` version `3.x`, which is rewritten from scratch, only keeping the tests and the exported API from before. This to fix the license of the project as the author of the original project never assigned a license to his code + it fixed a bug in the process.
+* **Possibly breaking change:** As a result of new tests for edge cases, some alterations was made to what was warnings or notices as well as when errors was thrown. Thanks to tests this can now be guaranteed over time
+* **Improvement:** Swap non-standard [`VError`](https://github.com/joyent/node-verror) for [`pony-cause` pony-fill](https://github.com/voxpelli/pony-cause#errorwithcause-creating-an-error-with-a-cause) of [standard Error Causes](https://v8.dev/features/error-cause)
+* **Stability:** Added tests to ensure consistent functionality over time as well as in edge cases
+* Lots of dependency updates and some test hardening
+
+## 5.0.0-2 - 2021-10-21
+
+* **Improvement:** Swap non-standard [`VError`](https://github.com/joyent/node-verror) for [`pony-cause` pony-fill](https://github.com/voxpelli/pony-cause#errorwithcause-creating-an-error-with-a-cause) of [standard Error Causes](https://v8.dev/features/error-cause)
+
+## 5.0.0-1 - 2021-10-19
+
+* **Breaking change:** Now requires Node.js version matching `^12.20.0 || ^14.13.1 || >=16.0.0`, to ensure compatibility with ESM-based dependencies
+* Lots of dependency updates and some test hardening
+
 ## 5.0.0-0 - 2021-03-11
 
 * **Possibly breaking change:** The engine checks are now driven by `@voxpelli/semver-set` version `3.x`, which is rewritten from scratch, only keeping the tests and the exported API from before. This to fix the license of the project as the author of the original project never assigned a license to his code + it fixed a bug in the process.
