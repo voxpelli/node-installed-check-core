@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 6.0.0 - 2022-06-14
+
+All changes from previous pre-releases:
+
+* **Breaking change:** Now requires Node.js version matching `^14.18.0 || >=16.0.0`
+* **Breaking change:** Is now a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
+
 ## 5.0.0 - 2021-11-14
 
 All changes from previous pre-releases:
