@@ -31,7 +31,7 @@
     "check:2": "run-s build:1-declaration",
     "check:3": "type-coverage --detail --strict --at-least 100 --ignore-files 'test/*'",
     "check": "run-s check:*",
-    "clean:declarations": "rm -rf $(find . -maxdepth 2 -type f -name '*.d.ts')",
+    "clean:declarations": "rm -rf $(find . -maxdepth 2 -type f -name '*.d.ts*')",
     "clean": "run-p clean:*",
     "prepare": "husky install",
     "prepublishOnly": "run-s build",
