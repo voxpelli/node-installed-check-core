@@ -1,14 +1,13 @@
 'use strict';
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
+import { use, should } from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { join } from 'desm';
 
-const path = require('path');
+import { installedCheck } from '../index.js';
 
-chai.use(chaiAsPromised);
-chai.should();
-
-const installedCheck = require('..');
+use(chaiAsPromised);
+should();
 
 process.on('unhandledRejection', reason => { throw reason; });
 
@@ -28,7 +27,7 @@ describe('installedCheck()', () => {
 
     it('should error on missing package.json file', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/missing-package-json'),
+        path: join(import.meta.url, 'fixtures/missing-package-json'),
         engineCheck: true,
         versionCheck: true
       })
@@ -37,7 +36,7 @@ describe('installedCheck()', () => {
 
     it('should error on inability to list installed modules', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/missing-node-modules'),
+        path: join(import.meta.url, 'fixtures/missing-node-modules'),
         engineCheck: true,
         versionCheck: true
       })
@@ -48,7 +47,7 @@ describe('installedCheck()', () => {
   describe('functionality', () => {
     it('should return an empty result on valid setup', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/valid'),
+        path: join(import.meta.url, 'fixtures/valid'),
         engineCheck: true,
         versionCheck: true
       })
@@ -61,7 +60,7 @@ describe('installedCheck()', () => {
 
     it('should return errors and warnings on invalid setup', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/invalid'),
+        path: join(import.meta.url, 'fixtures/invalid'),
         engineCheck: true,
         versionCheck: true
       })
@@ -91,7 +90,7 @@ describe('installedCheck()', () => {
 
     it('should check engine even when no target engines are set', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/missing-engines'),
+        path: join(import.meta.url, 'fixtures/missing-engines'),
         engineCheck: true,
         versionCheck: false
       })
@@ -107,7 +106,7 @@ describe('installedCheck()', () => {
 
     it('should not suggest an engine configuration when engines are incompatible', async () => {
       await installedCheck({
-        path: path.resolve(__dirname, 'fixtures/incompatible-engines'),
+        path: join(import.meta.url, 'fixtures/incompatible-engines'),
         engineCheck: true,
         versionCheck: false
       })

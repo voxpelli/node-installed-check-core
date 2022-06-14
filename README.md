@@ -9,17 +9,17 @@ Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/install
 ### Simple
 
 ```bash
-yarn add installed-check-core
+npm install installed-check-core
 ```
 
 ```javascript
-const installedCheck = require('installed-check-core');
+import { installedCheck } from 'installed-check-core';
 
-installedCheck({ versionCheck: true }).then(result => {
-  if (result.errors.length) {
-    console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
-  }
-});
+const { errors } = await installedCheck({ versionCheck: true });
+
+if (result.errors.length) {
+  console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
+}
 ```
 
 ## Syntax

@@ -1,13 +1,11 @@
-// @ts-check
-/// <reference types="node" />
-
 'use strict';
 
-const { listInstalled } = require('list-installed');
-const { ErrorWithCause } = require('pony-cause');
+import { listInstalled } from 'list-installed';
+import { ErrorWithCause } from 'pony-cause';
+import { readPackage } from 'read-pkg';
 
-const checkPackageVersions = require('./lib/check-package-versions');
-const checkEngineVersions = require('./lib/check-engine-versions');
+import checkPackageVersions from './lib/check-package-versions.js';
+import checkEngineVersions from './lib/check-engine-versions.js';
 
 /**
  * @typedef InstalledCheckResult
@@ -30,7 +28,7 @@ const checkEngineVersions = require('./lib/check-engine-versions');
  * @param {InstalledCheckOptions} options
  * @returns {Promise<InstalledCheckResult>}
  */
-const installedCheck = async function (options) {
+export const installedCheck = async function (options) {
   if (!options) throw new Error('Expected options to be set');
 
   const {
@@ -49,7 +47,7 @@ const installedCheck = async function (options) {
     mainPackage,
     installedDependencies,
   ] = await Promise.all([
-    (await import('read-pkg')).readPackage({ cwd: path }).catch(/** @param {Error} err */ err => {
+    readPackage({ cwd: path }).catch(/** @param {Error} err */ err => {
       throw new ErrorWithCause('Failed to read package.json', { cause: err });
     }),
     listInstalled(path).catch(/** @param {Error} err */ err => {
@@ -92,5 +90,3 @@ const installedCheck = async function (options) {
 
   return { errors, warnings, notices: [] };
 };
-
-module.exports = installedCheck;
