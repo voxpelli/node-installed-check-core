@@ -48,10 +48,10 @@
   },
   "dependencies": {
     "@voxpelli/semver-set": "^3.0.0",
-    "list-installed": "^1.0.1",
-    "pony-cause": "^1.1.1",
-    "read-pkg": "^7.0.0",
-    "semver": "^7.3.4"
+    "list-installed": "^1.1.0",
+    "pony-cause": "^2.0.0",
+    "read-pkg": "^7.1.0",
+    "semver": "^7.3.7"
   },
   "devDependencies": {
     "@hdsydsvenskan/ts-ignore-import": "^2.0.0",
