@@ -1,13 +1,13 @@
 'use strict';
 
-import { use, should } from 'chai';
+import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { join } from 'desm';
 
 import { installedCheck } from '../index.js';
 
-use(chaiAsPromised);
-should();
+chai.use(chaiAsPromised);
+chai.should();
 
 process.on('unhandledRejection', reason => { throw reason; });
 
