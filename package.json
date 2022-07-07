@@ -26,7 +26,7 @@
     "check:0": "run-s clean",
     "check:1:dependency-check": "dependency-check *.js 'test/**/*.js' --no-dev",
     "check:1:installed-check": "installed-check -i eslint-plugin-jsdoc",
-    "check:1:lint": "eslint .",
+    "check:1:lint": "eslint --report-unused-disable-directives .",
     "check:1:tsc": "tsc",
     "check:1": "run-p -c --aggregate-output check:1:*",
     "check:2": "run-s build:1-declaration",
