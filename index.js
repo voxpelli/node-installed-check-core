@@ -1,5 +1,3 @@
-'use strict';
-
 import { listInstalled } from 'list-installed';
 import { ErrorWithCause } from 'pony-cause';
 import { readPackage } from 'read-pkg';
