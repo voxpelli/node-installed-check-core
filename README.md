@@ -59,7 +59,7 @@ A Promise resolving to:
 
 ## Options
 
-* `path` – defaults to `.`. Specifies the path to where the target to be checked can be found, with its `package.json` being there and its `n ode_modules` as well.
+* `path` – defaults to `.`. Specifies the path to where the target to be checked can be found, with its `package.json` being there and its `node_modules` as well.
 * `engineCheck` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
 * `engineIgnores` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
 * `engineNoDev` – if set then dev dependencies won't be included in the engine check.
