@@ -47,7 +47,7 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^3.0.0",
+    "@voxpelli/semver-set": "^4.0.0",
     "list-installed": "^1.1.0",
     "pony-cause": "^2.0.0",
     "read-pkg": "^7.1.0",
