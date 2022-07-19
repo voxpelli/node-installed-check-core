@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 6.0.1 - 2022-07-19
 
-* **Dependencies**: Updated to version `4.0.0` of [`@voxpelli/semver-set`](https://www.npmjs.com/package/@voxpelli/semver-set),
+* **Dependencies**: Updated to version `4.0.0` of [`@voxpelli/semver-set`](https://www.npmjs.com/package/@voxpelli/semver-set)
 
 ## 6.0.0 - 2022-06-14
 
