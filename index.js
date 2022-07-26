@@ -2,8 +2,8 @@ import { listInstalled } from 'list-installed';
 import { ErrorWithCause } from 'pony-cause';
 import { readPackage } from 'read-pkg';
 
-import checkPackageVersions from './lib/check-package-versions.js';
-import checkEngineVersions from './lib/check-engine-versions.js';
+import { checkPackageVersions } from './lib/check-package-versions.js';
+import { checkEngineVersions } from './lib/check-engine-versions.js';
 
 /**
  * @typedef InstalledCheckResult
