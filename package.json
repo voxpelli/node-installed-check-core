@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@voxpelli/semver-set": "^4.0.0",
-    "list-installed": "^1.1.0",
+    "list-installed": "^2.0.1",
     "pony-cause": "^2.1.0",
     "read-pkg": "^7.1.0",
     "semver": "^7.3.7"
