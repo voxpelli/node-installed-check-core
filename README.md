@@ -4,7 +4,7 @@ Checks that the installed modules fulfill the requirements of `package.json`, bo
 
 [![npm version](https://img.shields.io/npm/v/installed-check-core.svg?style=flat)](https://www.npmjs.com/package/installed-check-core)
 [![npm downloads](https://img.shields.io/npm/dm/installed-check-core.svg?style=flat)](https://www.npmjs.com/package/installed-check-core)
-[![ES Module Ready Badge](https://img.shields.io/badge/es%20module%20ready-yes-success.svg)](https://esmodules.dev/)
+[![Module type: ESM](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 [![Types in JS](https://img.shields.io/badge/types_in_js-yes-brightgreen)](https://github.com/voxpelli/types-in-js)
 [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg)](https://github.com/voxpelli/eslint-config)
 [![Follow @voxpelli](https://img.shields.io/twitter/follow/voxpelli?style=social)](https://twitter.com/voxpelli)
@@ -12,12 +12,6 @@ Checks that the installed modules fulfill the requirements of `package.json`, bo
 Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/installed-check)
 
 ## Usage
-
-### Simple
-
-```bash
-npm install installed-check-core
-```
 
 ```javascript
 import { installedCheck } from 'installed-check-core';
@@ -27,6 +21,12 @@ const { errors } = await installedCheck({ versionCheck: true });
 if (result.errors.length) {
   console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
 }
+```
+
+### In CommonJS using available [`import()`](https://nodejs.org/api/esm.html#import-expressions) expression
+
+```javascript
+const { installedCheck } = await import('installed-check-core');
 ```
 
 ## Syntax
