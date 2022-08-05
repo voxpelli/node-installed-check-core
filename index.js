@@ -26,7 +26,7 @@ import { checkEngineVersions } from './lib/check-engine-versions.js';
  * @param {InstalledCheckOptions} options
  * @returns {Promise<InstalledCheckResult>}
  */
-export const installedCheck = async function (options) {
+export async function installedCheck (options) {
   if (!options) throw new Error('Expected options to be set');
 
   const {
@@ -87,4 +87,4 @@ export const installedCheck = async function (options) {
   }
 
   return { errors, warnings, notices: [] };
-};
+}
