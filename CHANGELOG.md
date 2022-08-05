@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 6.0.2 - 2022-08-05
+
+* **Dependencies**: Updated to version `2.x` of [`list-installed`](https://www.npmjs.com/package/list-installed)
+
 ## 6.0.1 - 2022-07-19
 
 * **Dependencies**: Updated to version `4.0.0` of [`@voxpelli/semver-set`](https://www.npmjs.com/package/@voxpelli/semver-set)
