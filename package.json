@@ -49,7 +49,7 @@
   "dependencies": {
     "@voxpelli/semver-set": "^4.0.0",
     "list-installed": "^2.2.0",
-    "pony-cause": "^2.1.6",
+    "pony-cause": "^2.1.7",
     "read-pkg": "^7.1.0",
     "semver": "^7.3.7"
   },
@@ -61,7 +61,7 @@
     "@types/node": "^14.18.33",
     "@types/semver": "^7.3.13",
     "@voxpelli/eslint-config": "^15.2.0",
-    "@voxpelli/tsconfig": "^6.0.0",
+    "@voxpelli/tsconfig": "^6.1.0",
     "c8": "^7.12.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
