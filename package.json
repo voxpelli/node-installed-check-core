@@ -44,7 +44,7 @@
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
   "license": "MIT",
   "engines": {
-    "node": "^14.18.0 || >=16.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@voxpelli/semver-set": "^4.0.0",
@@ -58,7 +58,7 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.0",
-    "@types/node": "^14.18.33",
+    "@types/node": "^16.18.27",
     "@types/semver": "^7.3.13",
     "@voxpelli/eslint-config": "^15.2.0",
     "@voxpelli/tsconfig": "^6.1.0",
