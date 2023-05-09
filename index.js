@@ -30,10 +30,10 @@ export async function installedCheck (options) {
   if (!options) throw new Error('Expected options to be set');
 
   const {
-    path = '.',
     engineCheck = false,
     engineIgnores = [],
     engineNoDev = false,
+    path = '.',
     versionCheck = false,
   } = options;
 
