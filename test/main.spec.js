@@ -30,7 +30,7 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/missing-package-json'),
         engineCheck: true,
-        versionCheck: true
+        versionCheck: true,
       })
         .should.be.rejectedWith(/Failed to read package\.json/);
     });
@@ -39,7 +39,7 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/missing-node-modules'),
         engineCheck: true,
-        versionCheck: true
+        versionCheck: true,
       })
         .should.be.rejectedWith(/Failed to list installed modules/);
     });
@@ -50,12 +50,12 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/valid'),
         engineCheck: true,
-        versionCheck: true
+        versionCheck: true,
       })
         .should.eventually.deep.equal({
           errors: [],
           notices: [],
-          warnings: []
+          warnings: [],
         });
     });
 
@@ -63,7 +63,7 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/invalid'),
         engineCheck: true,
-        versionCheck: true
+        versionCheck: true,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -85,7 +85,7 @@ describe('installedCheck()', () => {
             'invalid-module-version: Missing engine: node',
             'invalid-module-version: Missing engine: bar',
             'invalid-module-version: Missing engine: abc',
-          ]
+          ],
         });
     });
 
@@ -93,7 +93,7 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/missing-engines'),
         engineCheck: true,
-        versionCheck: false
+        versionCheck: false,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -101,7 +101,7 @@ describe('installedCheck()', () => {
             'Combined "node" engine requirement needs to be narrower: >=8.0.0',
           ],
           notices: [],
-          warnings: []
+          warnings: [],
         });
     });
 
@@ -109,7 +109,7 @@ describe('installedCheck()', () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/incompatible-engines'),
         engineCheck: true,
-        versionCheck: false
+        versionCheck: false,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -117,7 +117,7 @@ describe('installedCheck()', () => {
             'Incompatible combined "node" requirements.',
           ],
           notices: [],
-          warnings: []
+          warnings: [],
         });
     });
   });
