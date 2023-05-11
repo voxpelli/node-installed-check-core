@@ -47,9 +47,9 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^4.0.0",
+    "@voxpelli/semver-set": "^5.0.0",
     "list-installed": "^3.0.0",
-    "pony-cause": "^2.1.8",
+    "pony-cause": "^2.1.10",
     "read-pkg": "^8.0.0",
     "semver": "^7.3.7"
   },
@@ -58,9 +58,9 @@
     "@types/chai": "^4.3.5",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^16.18.27",
+    "@types/node": "^16.18.28",
     "@types/semver": "^7.5.0",
-    "@voxpelli/eslint-config": "^16.0.4",
+    "@voxpelli/eslint-config": "^16.0.7",
     "@voxpelli/tsconfig": "^7.0.0",
     "c8": "^7.13.0",
     "chai": "^4.3.7",
@@ -71,7 +71,7 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-es": "^4.1.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsdoc": "^44.1.0",
+    "eslint-plugin-jsdoc": "^44.2.2",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
