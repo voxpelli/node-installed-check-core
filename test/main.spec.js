@@ -59,6 +59,19 @@ describe('installedCheck()', () => {
         });
     });
 
+    it('should return an empty result on an aliased setup', async () => {
+      await installedCheck({
+        path: join(import.meta.url, 'fixtures/aliased'),
+        engineCheck: true,
+        versionCheck: true,
+      })
+        .should.eventually.deep.equal({
+          errors: [],
+          notices: [],
+          warnings: [],
+        });
+    });
+
     it('should return errors and warnings on invalid setup', async () => {
       await installedCheck({
         path: join(import.meta.url, 'fixtures/invalid'),
@@ -67,6 +80,8 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           'errors': [
+            'invalid-aliased-name: Invalid name of aliased package, expected "bar" but got "foo"',
+            'invalid-aliased-version: Invalid version, expected a ^2.0.0',
             "invalid-dependency-definition: Dependency is not installed. Can't check its version",
             'invalid-module-version: Invalid version, expected a ^1.0.0',
             "invalid-dependency-definition: Dependency is not installed. Can't check its engine requirement",
@@ -77,10 +92,13 @@ describe('installedCheck()', () => {
           ],
           notices: [],
           warnings: [
+            "invalid-alias-syntax: Invalid npm alias. Can't match against dependency version",
             "invalid-dependency-definition: Target version is empty. Can't match against dependency version",
             "invalid-engine: Target version is not a semantic versioning range. Can't match against dependency version",
             'Empty engine definition: bar',
-            'Empty engine definition: abc',
+            'invalid-alias-syntax: Missing engine: bar',
+            'invalid-aliased-name: Missing engine: bar',
+            'invalid-aliased-version: Missing engine: bar',
             'invalid-engine: Missing engine: bar',
             'invalid-module-version: Missing engine: node',
             'invalid-module-version: Missing engine: bar',

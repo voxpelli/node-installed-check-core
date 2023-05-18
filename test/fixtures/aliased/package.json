@@ -1,0 +1,8 @@
+{
+  "engines": { "node": ">=8.0.0" },
+  "dependencies": {
+    "@voxpelli/bar": "npm:foo@^3.0.0",
+    "bar": "npm:foo@^2.0.0",
+    "foo": "^1.0.0"
+  }
+}
