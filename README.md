@@ -1,4 +1,11 @@
-# Installed Check Core
+<div align="center">
+  <img
+    src="installed-check-core.svg"
+    width="650"
+    height="auto"
+    alt="installed-check-core"
+  />
+</div>
 
 Checks that the installed modules fulfill the requirements of `package.json`, both when it comes to the version ranges of the modules themselves and when it comes to the version range of their engine requirements.
 
