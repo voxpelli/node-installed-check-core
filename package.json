@@ -47,11 +47,11 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^5.0.0",
+    "@voxpelli/semver-set": "^5.0.2",
     "list-installed": "^4.2.0",
     "pony-cause": "^2.1.10",
     "read-pkg": "^8.0.0",
-    "semver": "^7.3.7"
+    "semver": "^7.5.3"
   },
   "devDependencies": {
     "@hdsydsvenskan/ts-ignore-import": "^2.0.0",
