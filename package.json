@@ -59,7 +59,7 @@
     "@types/chai-as-promised": "^7.1.7",
     "@types/mocha": "^10.0.3",
     "@types/node": "^16.18.59",
-    "@types/semver": "^7.5.4",
+    "@types/semver": "^7.5.8",
     "@voxpelli/eslint-config": "^19.0.0",
     "@voxpelli/tsconfig": "^9.0.0",
     "c8": "^8.0.1",
@@ -81,7 +81,7 @@
     "knip": "^2.35.0",
     "mocha": "^10.2.0",
     "npm-run-all2": "^6.1.1",
-    "type-coverage": "^2.27.0",
-    "typescript": "~5.2.2"
+    "type-coverage": "^2.27.1",
+    "typescript": "~5.3.3"
   }
 }
