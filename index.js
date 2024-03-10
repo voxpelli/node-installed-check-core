@@ -18,6 +18,7 @@ import { checkEngineVersions } from './lib/check-engine-versions.js';
  * @property {boolean|undefined} engineCheck
  * @property {string[]|undefined} [engineIgnores]
  * @property {boolean|undefined} [engineNoDev]
+ * @property {boolean} [strict]
  * @property {boolean|undefined} versionCheck
  */
 
@@ -34,6 +35,7 @@ export async function installedCheck (options) {
     engineIgnores = [],
     engineNoDev = false,
     path = '.',
+    strict = false,
     versionCheck = false,
   } = options;
 
@@ -75,6 +77,7 @@ export async function installedCheck (options) {
       {
         noDev: engineNoDev,
         ignore: engineIgnores,
+        strict,
       }
     );
 
