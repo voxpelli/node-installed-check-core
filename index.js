@@ -69,17 +69,13 @@ export async function installedCheck (options) {
   }
 
   if (engineCheck) {
-    const dependencies = Object.assign({}, engineNoDev ? mainPackage.dependencies : requiredDependencies);
-
-    for (const name of (engineIgnores || [])) {
-      delete dependencies[name];
-    }
-
     const engineResult = checkEngineVersions(
-      mainPackage.engines || {},
-      dependencies,
+      mainPackage,
       installedDependencies,
-      optionalDependencies
+      {
+        noDev: engineNoDev,
+        ignore: engineIgnores,
+      }
     );
 
     errors = [...errors, ...engineResult.errors];

@@ -84,25 +84,25 @@ describe('installedCheck()', () => {
             'invalid-aliased-version: Invalid version, expected a ^2.0.0',
             "invalid-dependency-definition: Dependency is not installed. Can't check its version",
             'invalid-module-version: Invalid version, expected a ^1.0.0',
-            "invalid-dependency-definition: Dependency is not installed. Can't check its engine requirement",
-            'invalid-engine: Narrower "node" engine requirement needed: >=10.0.0',
-            'invalid-engine: Narrower "abc" engine requirement needed: >=1.0.0',
-            'Combined "node" engine requirement needs to be narrower: >=10.0.0',
-            'Combined "abc" engine requirement needs to be narrower: >=1.0.0',
+            'invalid-engine: Narrower "engines.node" is needed: >=10.0.0',
+            'invalid-engine: Narrower "engines.abc" is needed: >=1.0.0',
+            'Combined "engines.node" needs to be narrower: >=10.0.0',
+            'Combined "engines.abc" needs to be narrower: >=1.0.0',
           ],
           notices: [],
           warnings: [
             "invalid-alias-syntax: Invalid npm alias. Can't match against dependency version",
             "invalid-dependency-definition: Target version is empty. Can't match against dependency version",
             "invalid-engine: Target version is not a semantic versioning range. Can't match against dependency version",
-            'Empty engine definition: bar',
-            'invalid-alias-syntax: Missing engine: bar',
-            'invalid-aliased-name: Missing engine: bar',
-            'invalid-aliased-version: Missing engine: bar',
-            'invalid-engine: Missing engine: bar',
-            'invalid-module-version: Missing engine: node',
-            'invalid-module-version: Missing engine: bar',
-            'invalid-module-version: Missing engine: abc',
+            "invalid-dependency-definition: Dependency is not installed. Can't check its requirements",
+            'invalid-module-version: Missing "engines.node"',
+            'Missing "engines.bar" in main package',
+            'invalid-alias-syntax: Missing "engines.bar"',
+            'invalid-aliased-name: Missing "engines.bar"',
+            'invalid-aliased-version: Missing "engines.bar"',
+            'invalid-engine: Missing "engines.bar"',
+            'invalid-module-version: Missing "engines.bar"',
+            'invalid-module-version: Missing "engines.abc"',
           ],
         });
     });
@@ -115,11 +115,13 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           'errors': [
-            'foo: Narrower "node" engine requirement needed: >=8.0.0',
-            'Combined "node" engine requirement needs to be narrower: >=8.0.0',
+            'foo: Narrower "engines.node" is needed: >=8.0.0',
+            'Combined "engines.node" needs to be narrower: >=8.0.0',
           ],
           notices: [],
-          warnings: [],
+          warnings: [
+            'Missing "engines.node" in main package',
+          ],
         });
     });
 
@@ -131,8 +133,8 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           'errors': [
-            'foo: Incompatible "node" engine requirement: <6.0.0',
-            'Incompatible combined "node" requirements.',
+            'foo: Incompatible "engines.node" requirement: <6.0.0',
+            'Incompatible combined "engines.node" requirements.',
           ],
           notices: [],
           warnings: [],
