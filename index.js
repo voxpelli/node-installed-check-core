@@ -9,7 +9,6 @@ import { checkEngineVersions } from './lib/check-engine-versions.js';
  * @typedef InstalledCheckResult
  * @property {string[]} errors
  * @property {string[]} warnings
- * @property {string[]} notices
  */
 
 /**
@@ -85,5 +84,5 @@ export async function installedCheck (options) {
     warnings = [...warnings, ...engineResult.warnings];
   }
 
-  return { errors, warnings, notices: [] };
+  return { errors, warnings };
 }

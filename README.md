@@ -39,7 +39,7 @@ const { installedCheck } = await import('installed-check-core');
 ## Syntax
 
 ```javascript
-const { errors, warnings, notices } = await installedCheck({
+const { errors, warnings } = await installedCheck({
   path: 'path/to/module',
   engineCheck: true,
   engineIgnores: ['foo'],
@@ -58,7 +58,6 @@ A Promise resolving to:
 
 ```javascript
 {
-  notices: ['123'],
   warnings: ['Abc'],
   errors: ['Xyz']
 };

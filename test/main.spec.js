@@ -54,7 +54,6 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           errors: [],
-          notices: [],
           warnings: [],
         });
     });
@@ -67,7 +66,6 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           errors: [],
-          notices: [],
           warnings: [],
         });
     });
@@ -89,7 +87,6 @@ describe('installedCheck()', () => {
             'Combined "engines.node" needs to be narrower: >=10.0.0',
             'Combined "engines.abc" needs to be narrower: >=1.0.0',
           ],
-          notices: [],
           warnings: [
             "invalid-alias-syntax: Invalid npm alias. Can't match against dependency version",
             "invalid-dependency-definition: Target version is empty. Can't match against dependency version",
@@ -118,7 +115,6 @@ describe('installedCheck()', () => {
             'foo: Narrower "engines.node" is needed: >=8.0.0',
             'Combined "engines.node" needs to be narrower: >=8.0.0',
           ],
-          notices: [],
           warnings: [
             'Missing "engines.node" in main package',
           ],
@@ -136,7 +132,6 @@ describe('installedCheck()', () => {
             'foo: Incompatible "engines.node" requirement: <6.0.0',
             'Incompatible combined "engines.node" requirements.',
           ],
-          notices: [],
           warnings: [],
         });
     });
