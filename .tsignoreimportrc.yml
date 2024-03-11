@@ -1,4 +1,0 @@
-tsConfig: tsconfig.json
-allow:
-  - 'list-installed'
-  - 'read-pkg'

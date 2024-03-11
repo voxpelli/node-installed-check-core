@@ -21,16 +21,16 @@
   "scripts": {
     "build:0": "run-s clean",
     "build:1-declaration": "tsc -p declaration.tsconfig.json",
-    "build:2-add-ignores": "ts-ignore-import '**/*.d.ts'",
     "build": "run-s build:*",
     "check:0": "run-s clean",
-    "check:1:installed-check": "installed-check -i eslint-plugin-jsdoc -i knip -i installed-check",
+    "check:1:installed-check": "installed-check -i eslint-plugin-jsdoc -i knip -i linemod",
     "check:1:knip": "knip",
     "check:1:lint": "eslint --report-unused-disable-directives .",
     "check:1:tsc": "tsc",
+    "check:1:type-coverage": "type-coverage --detail --strict --at-least 99 --ignore-files 'test/*'",
     "check:1": "run-p check:1:*",
-    "check:2": "run-s build:1-declaration",
-    "check:3": "type-coverage --detail --strict --at-least 100 --ignore-files 'test/*'",
+    "check:2": "run-s build",
+    "check:3": "tsd",
     "check": "run-s check:*",
     "clean:declarations": "rm -rf $(find . -maxdepth 2 -type f -name '*.d.ts*')",
     "clean": "run-p clean:*",
@@ -55,7 +55,6 @@
     "semver": "^7.6.0"
   },
   "devDependencies": {
-    "@hdsydsvenskan/ts-ignore-import": "^2.0.0",
     "@types/chai": "^4.3.12",
     "@types/chai-as-promised": "^7.1.8",
     "@types/mocha": "^10.0.6",
@@ -82,6 +81,7 @@
     "knip": "^5.0.3",
     "mocha": "^10.3.0",
     "npm-run-all2": "^6.1.2",
+    "tsd": "^0.30.7",
     "type-coverage": "^2.27.1",
     "typescript": "~5.4.2",
     "validate-conventional-commit": "^1.0.3"

@@ -50,7 +50,7 @@ checkVersionRange(mainPackage, key, installedDependencies, [options]) => Version
 
 #### Arguments
 
-* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `key`: Type `string` – the key of the version range to check, eg `engines.node`
 * `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `VersionRangeOptions` – optional options
@@ -58,10 +58,6 @@ checkVersionRange(mainPackage, key, installedDependencies, [options]) => Version
 #### Types
 
 ```ts
-import type { NormalizedPackageJson } from 'read-pkg'
-
-type InstalledDependencies = Map<string, NormalizedPackageJson>
-
 type VersionRangeItem = {
   valid: boolean|undefined,
   suggested?: string|undefined,
@@ -138,14 +134,18 @@ getInstalledData(path = '.') => Promise<InstalledData>
 #### Types
 
 ```ts
-import type { NormalizedPackageJson } from 'read-pkg'
+// Subset of import('type-fest').PackageJson / import('read-pkg').NormalizedPackageJson
+export type PackageJsonLike = {
+  name?:    string | undefined;
+  version?: string | undefined;
+  engines?:              Record<string, string | undefined>;
+  dependencies?:         Record<string, string | undefined>;
+  devDependencies?:      Record<string, string | undefined>;
+  optionalDependencies?: Record<string, string | undefined>;
+  peerDependencies?:     Record<string, string | undefined>;
+};
 
-type InstalledDependencies = Map<string, NormalizedPackageJson>
-
-type InstalledData = {
-  mainPackage: NormalizedPackageJson,
-  installedDependencies: InstalledDependencies,
-}
+export type InstalledDependencies = Map<string, PackageJsonLike>;
 ```
 
 #### Example
@@ -207,7 +207,7 @@ performInstalledCheck(mainPackage, installedDependencies, options) => Promise<In
 
 #### Arguments
 
-* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
 
