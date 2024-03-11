@@ -145,7 +145,8 @@ export type PackageJsonLike = {
   peerDependencies?:     Record<string, string | undefined>;
 };
 
-export type InstalledDependencies = Map<string, PackageJsonLike>;
+// A map is allowed since that's what import('list-installed).listInstalled returns
+export type InstalledDependencies = Map<string, PackageJsonLike> | Record<string, PackageJsonLike>;
 ```
 
 #### Example
