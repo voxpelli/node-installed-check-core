@@ -30,15 +30,158 @@ if (result.errors.length) {
 }
 ```
 
-### In CommonJS using available [`import()`](https://nodejs.org/api/esm.html#import-expressions) expression
+### In CommonJS using dynamic [`import()`](https://nodejs.org/api/esm.html#import-expressions) expression
 
 ```javascript
 const { installedCheck } = await import('installed-check-core');
 ```
 
-## Syntax
+## API
+
+### checkVersionRange()
+
+The rich version range check that `installed-check` itself uses.
+
+#### Syntax
+
+```ts
+checkVersionRange(mainPackage, key, installedDependencies, [options]) => VersionRangeResult
+```
+
+#### Arguments
+
+* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check
+* `key`: Type `string` – the key of the version range to check, eg `engines.node`
+* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking
+* `options`: Type `VersionRangeOptions` – optional options
+
+#### Types
+
+```ts
+import type { NormalizedPackageJson } from 'read-pkg'
+
+type InstalledDependencies = Map<string, NormalizedPackageJson>
+
+type VersionRangeItem = {
+  valid: boolean|undefined,
+  suggested?: string|undefined,
+  note: string|undefined,
+}
+type VersionRangeResult = VersionRangeItem & {
+  packageNotes: Array<
+    VersionRangeItem & { name: string }
+  >
+}
+```
+
+#### Options
+
+ * `expectedInDependencies = false` – when set a warning will be issued when the key is empty or not found in a dependency
+ * `noDev = false` – if set then dev dependencies won't be included in the check
+ * `ignore = string[]` – if set then the specified module names won't be included in the check.
+ * `strict = false` – converts most warnings into failures.
+
+#### Example
 
 ```javascript
+import { checkVersionRange, getInstalledData } from 'installed-check-core';
+
+const { installedDependencies, mainPackage } = await getInstalledData(path);
+
+const result = await checkVersionRange(
+  mainPackage,
+  'engines.node',
+  installedDependencies,
+  {
+    expectedInDependencies: true,
+    noDev: true,
+    ignore: ['example'],
+    strict: true,
+  }
+);
+
+for (const item of result.packageNotes) {
+  if (item.note) {
+    console.log(`${item.valid === false ? 'Error' : 'Warning'} in ${item.name}: ${item.note}`);
+  }
+}
+
+if (result.note) {
+  console.log(`${result.valid === false ? 'Error' : 'Warning'}: ${result.note}`);
+}
+
+if (result.valid === true) {
+  console.log('All good!');
+} else if (result.suggested) {
+  console.log('Combined engines.node needs to be narrower:', result.suggested);
+} else {
+  console.log('Incompatible combined engines.node requirements.');
+}
+```
+
+### getInstalledData()
+
+Companion method to eg. `checkVersionRange()` that which makes it easy to get the correct data required. Not meant for any other use.
+
+Is a simple wrapper around [`read-pkg`](https://github.com/sindresorhus/read-pkg) and [`list-installed`](https://github.com/voxpelli/list-installed) – those or similar modules can be used directly just as well.
+
+#### Syntax
+
+```ts
+getInstalledData(path = '.') => Promise<InstalledData>
+```
+
+#### Arguments
+
+* `path` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
+
+#### Types
+
+```ts
+import type { NormalizedPackageJson } from 'read-pkg'
+
+type InstalledDependencies = Map<string, NormalizedPackageJson>
+
+type InstalledData = {
+  mainPackage: NormalizedPackageJson,
+  installedDependencies: InstalledDependencies,
+}
+```
+
+#### Example
+
+See example of [`checkVersionRange()`](#checkversionrange)
+
+### installedCheck()
+
+The full on `installed-check` experience, returning error and warning strings only.
+
+#### Syntax
+
+```ts
+installedCheck(options) => Promise<InstalledCheckResult>
+```
+
+#### Types
+
+```ts
+type InstalledCheckResult = { errors: string[], warnings: string[] }
+```
+
+#### Options
+
+* `path = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
+* `engineCheck = false` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
+* `engineIgnores = string[]` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
+* `engineNoDev = false` – if set then dev dependencies won't be included in the engine check.
+* `strict = false` – converts most warnings into failures.
+* `versionCheck = false` – if set `installed-check` will check that the installed modules comply with the version requirements set for them the `package.json`.
+
+#### Example
+
+```javascript
+import { installedCheck } from 'installed-check-core';
+
 const { errors, warnings } = await installedCheck({
   path: 'path/to/module',
   engineCheck: true,
@@ -47,26 +190,3 @@ const { errors, warnings } = await installedCheck({
   versionCheck: true,
 });
 ```
-
-### Parameters
-
-1. `options` – optional object containing additional options for the module
-
-### Returns
-
-A Promise resolving to:
-
-```javascript
-{
-  warnings: ['Abc'],
-  errors: ['Xyz']
-};
-```
-
-## Options
-
-* `path` – defaults to `.`. Specifies the path to where the target to be checked can be found, with its `package.json` being there and its `node_modules` as well.
-* `engineCheck` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
-* `engineIgnores` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
-* `engineNoDev` – if set then dev dependencies won't be included in the engine check.
-* `versionCheck` – if set `installed-check` will check that the installed modules comply with the version requirements set for them the `package.json`.
