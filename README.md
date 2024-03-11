@@ -211,3 +211,12 @@ performInstalledCheck(mainPackage, installedDependencies, options) => Promise<In
 * `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
 
+## Used by
+
+* Used by the [`installed-check`](https://github.com/voxpelli/node-installed-check) CLI tool
+  * ...and eg. pretty much all of my ([@voxpelli](https://github.com/voxpelli)'s) node.js projects uses the `installed-check` CLI tool
+* Find more on [GitHub](https://github.com/voxpelli/node-installed-check-core/network/dependents) or [npm](https://www.npmjs.com/package/installed-check-core?activeTab=dependents)
+
+## Similar modules
+
+* [`knip`](https://github.com/webpro/knip) – finds unused files, dependencies and exports in your JavaScript and TypeScript projects – a great companion module to `installed-check`
