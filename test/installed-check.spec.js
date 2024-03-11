@@ -17,29 +17,24 @@ describe('installedCheck()', () => {
     it('should error when no options', async () => {
       // @ts-ignore
       await installedCheck()
-        .should.be.rejectedWith('Expected options to be set');
+        .should.be.rejectedWith(TypeError, 'Expected a "checks" array, got: undefined');
     });
 
     it('should error when invalid options', async () => {
-      // @ts-ignore
-      await installedCheck({})
-        .should.be.rejectedWith('Expected to run at least one check. Add engineCheck and/or versionCheck');
+      await installedCheck([])
+        .should.be.rejectedWith(/Expected to run at least one check\. "checks" should include at least one of: engine,/);
     });
 
     it('should error on missing package.json file', async () => {
-      await installedCheck({
+      await installedCheck(['engine', 'version'], {
         path: join(import.meta.url, 'fixtures/missing-package-json'),
-        engineCheck: true,
-        versionCheck: true,
       })
         .should.be.rejectedWith(/Failed to read package\.json/);
     });
 
     it('should error on inability to list installed modules', async () => {
-      await installedCheck({
+      await installedCheck(['engine', 'version'], {
         path: join(import.meta.url, 'fixtures/missing-node-modules'),
-        engineCheck: true,
-        versionCheck: true,
       })
         .should.be.rejectedWith(/Failed to list installed modules/);
     });
@@ -47,10 +42,8 @@ describe('installedCheck()', () => {
 
   describe('functionality', () => {
     it('should return an empty result on valid setup', async () => {
-      await installedCheck({
+      await installedCheck(['engine', 'version'], {
         path: join(import.meta.url, 'fixtures/valid'),
-        engineCheck: true,
-        versionCheck: true,
       })
         .should.eventually.deep.equal({
           errors: [],
@@ -59,10 +52,8 @@ describe('installedCheck()', () => {
     });
 
     it('should return an empty result on an aliased setup', async () => {
-      await installedCheck({
+      await installedCheck(['engine', 'version'], {
         path: join(import.meta.url, 'fixtures/aliased'),
-        engineCheck: true,
-        versionCheck: true,
       })
         .should.eventually.deep.equal({
           errors: [],
@@ -71,10 +62,8 @@ describe('installedCheck()', () => {
     });
 
     it('should return errors and warnings on invalid setup', async () => {
-      await installedCheck({
+      await installedCheck(['engine', 'version'], {
         path: join(import.meta.url, 'fixtures/invalid'),
-        engineCheck: true,
-        versionCheck: true,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -105,10 +94,8 @@ describe('installedCheck()', () => {
     });
 
     it('should check engine even when no target engines are set', async () => {
-      await installedCheck({
+      await installedCheck(['engine'], {
         path: join(import.meta.url, 'fixtures/missing-engines'),
-        engineCheck: true,
-        versionCheck: false,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -122,10 +109,8 @@ describe('installedCheck()', () => {
     });
 
     it('should not suggest an engine configuration when engines are incompatible', async () => {
-      await installedCheck({
+      await installedCheck(['engine'], {
         path: join(import.meta.url, 'fixtures/incompatible-engines'),
-        engineCheck: true,
-        versionCheck: false,
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -137,10 +122,8 @@ describe('installedCheck()', () => {
     });
 
     it('should handle engine ranges', async () => {
-      await installedCheck({
+      await installedCheck(['engine'], {
         path: join(import.meta.url, 'fixtures/engine-ranges'),
-        engineCheck: true,
-        versionCheck: false,
       })
         .should.eventually.deep.equal({
           'errors': [],
