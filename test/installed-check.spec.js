@@ -3,7 +3,7 @@ import chaiAsPromised from 'chai-as-promised';
 import { join } from 'desm';
 import { ErrorWithCause } from 'pony-cause';
 
-import { installedCheck } from '../index.js';
+import { installedCheck } from '../lib/installed-check.js';
 
 chai.use(chaiAsPromised);
 chai.should();
