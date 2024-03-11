@@ -135,5 +135,17 @@ describe('installedCheck()', () => {
           warnings: [],
         });
     });
+
+    it('should handle engine ranges', async () => {
+      await installedCheck({
+        path: join(import.meta.url, 'fixtures/engine-ranges'),
+        engineCheck: true,
+        versionCheck: false,
+      })
+        .should.eventually.deep.equal({
+          'errors': [],
+          warnings: [],
+        });
+    });
   });
 });
