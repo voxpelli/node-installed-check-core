@@ -50,9 +50,9 @@ checkVersionRange(mainPackage, key, installedDependencies, [options]) => Version
 
 #### Arguments
 
-* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check
+* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `key`: Type `string` – the key of the version range to check, eg `engines.node`
-* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking
+* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `VersionRangeOptions` – optional options
 
 #### Types
@@ -162,6 +162,10 @@ The full on `installed-check` experience, returning error and warning strings on
 installedCheck(options) => Promise<InstalledCheckResult>
 ```
 
+#### Arguments
+
+* `options`: Type `InstalledCheckOptions` – needs to have at least one check – `engineCheck`, `versionCheck` – set to `true`
+
 #### Types
 
 ```ts
@@ -190,3 +194,20 @@ const { errors, warnings } = await installedCheck({
   versionCheck: true,
 });
 ```
+
+### performInstalledCheck()
+
+Same as [`installedCheck()`](#installedcheck) but without looking up any data on its own but instead expects the data from [`getInstalledData()`](#getinstalleddata) or similar to be given to it.
+
+#### Syntax
+
+```ts
+performInstalledCheck(mainPackage, installedDependencies, options) => Promise<InstalledCheckResult>
+```
+
+#### Arguments
+
+* `mainPackage`: Type `NormalizedPackageJson` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
+* `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
+

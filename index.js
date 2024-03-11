@@ -9,3 +9,4 @@
 export { checkVersionRange } from './lib/check-version-range.js';
 export { getInstalledData } from './lib/get-installed-data.js';
 export { installedCheck } from './lib/installed-check.js';
+export { performInstalledCheck } from './lib/perform-installed-check.js';
