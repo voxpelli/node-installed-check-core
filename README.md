@@ -23,7 +23,7 @@ Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/install
 ```javascript
 import { installedCheck } from 'installed-check-core';
 
-const { errors } = await installedCheck({ versionCheck: true });
+const { errors } = await installedCheck(['version']);
 
 if (result.errors.length) {
   console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
@@ -72,9 +72,9 @@ type VersionRangeResult = VersionRangeItem & {
 
 #### Options
 
- * `expectedInDependencies = false` – when set a warning will be issued when the key is empty or not found in a dependency
- * `noDev = false` – if set then dev dependencies won't be included in the check
- * `ignore = string[]` – if set then the specified module names won't be included in the check.
+ * `expectedInDependencies = false` – a warning will be issued when the key is empty or not found in a dependency
+ * `noDev = false` – dev dependencies won't be included in the check
+ * `ignore = string[]|((test: string) => boolean)` – names of modules to exclude from checks or a function that returns `true` for those that should be ignores (the latter handy for supporting eg. glob patterns)
  * `strict = false` – converts most warnings into failures.
 
 #### Example
@@ -160,12 +160,13 @@ The full on `installed-check` experience, returning error and warning strings on
 #### Syntax
 
 ```ts
-installedCheck(options) => Promise<InstalledCheckResult>
+installedCheck(checks, options) => Promise<InstalledCheckResult>
 ```
 
 #### Arguments
 
-* `options`: Type `InstalledCheckOptions` – needs to have at least one check – `engineCheck`, `versionCheck` – set to `true`
+* `checks`: Type `('engine' | 'version')[]` – the checks to run
+* `options`: Type `InstalledCheckOptions`
 
 #### Types
 
@@ -173,26 +174,27 @@ installedCheck(options) => Promise<InstalledCheckResult>
 type InstalledCheckResult = { errors: string[], warnings: string[] }
 ```
 
+#### Checks
+
+* `engine` – will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
+* `version` – will check that the installed modules comply with the version requirements set for them the `package.json`.
+
 #### Options
 
 * `path = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
-* `engineCheck = false` – if set `installed-check` will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
-* `engineIgnores = string[]` – if set then the specified module names won't be included in the engine check. `engineIgnores` should an array of module names while the CLI flags should be set once for each module name.
-* `engineNoDev = false` – if set then dev dependencies won't be included in the engine check.
-* `strict = false` – converts most warnings into failures.
-* `versionCheck = false` – if set `installed-check` will check that the installed modules comply with the version requirements set for them the `package.json`.
+* `ignores = string[]` – names of modules to exclude from checks. Supports [`picomatch`](https://www.npmjs.com/package/picomatch) globbing syntax, eg. `@types/*`. (Not supported by `version` checks)
+* `noDev = false` – exclude dev dependencies from checks (Not supported by `version` checks)
+* `strict = false` – converts most warnings into failures
 
 #### Example
 
 ```javascript
 import { installedCheck } from 'installed-check-core';
 
-const { errors, warnings } = await installedCheck({
+const { errors, warnings } = await installedCheck(['engine', 'version'], {
   path: 'path/to/module',
-  engineCheck: true,
-  engineIgnores: ['foo'],
-  engineNoDev: true,
-  versionCheck: true,
+  ignore: ['foo'],
+  noDev: true,
 });
 ```
 
@@ -203,11 +205,12 @@ Same as [`installedCheck()`](#installedcheck) but without looking up any data on
 #### Syntax
 
 ```ts
-performInstalledCheck(mainPackage, installedDependencies, options) => Promise<InstalledCheckResult>
+performInstalledCheck(checks, mainPackage, installedDependencies, options) => Promise<InstalledCheckResult>
 ```
 
 #### Arguments
 
+* `checks`: Type `('engine' | 'version')[]` – same as for [`installedCheck()`](#installedcheck)
 * `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
