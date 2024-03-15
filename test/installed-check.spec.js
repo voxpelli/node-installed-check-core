@@ -130,5 +130,27 @@ describe('installedCheck()', () => {
           warnings: [],
         });
     });
+
+    it('should handle ignores', async () => {
+      await installedCheck(['engine'], {
+        path: join(import.meta.url, 'fixtures/invalid'),
+        ignore: ['invalid-alias*', 'invalid-dependency-definition'],
+      })
+        .should.eventually.deep.equal({
+          'errors': [
+            'invalid-engine: Narrower "engines.node" is needed: >=10.0.0',
+            'invalid-engine: Narrower "engines.abc" is needed: >=1.0.0',
+            'Combined "engines.node" needs to be narrower: >=10.0.0',
+            'Combined "engines.abc" needs to be narrower: >=1.0.0',
+          ],
+          warnings: [
+            'invalid-module-version: Missing "engines.node"',
+            'Missing "engines.bar" in main package',
+            'invalid-engine: Missing "engines.bar"',
+            'invalid-module-version: Missing "engines.bar"',
+            'invalid-module-version: Missing "engines.abc"',
+          ],
+        });
+    });
   });
 });
