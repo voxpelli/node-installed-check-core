@@ -152,5 +152,19 @@ describe('installedCheck()', () => {
           ],
         });
     });
+
+    it('should check peer dependencies', async () => {
+      await installedCheck(['peer'], {
+        path: join(import.meta.url, 'fixtures/peer'),
+      })
+        .should.eventually.deep.equal({
+          'errors': [
+            'foo: Narrower "peerDependencies.bar" is needed: >=4.6.8',
+            'Combined "peerDependencies.bar" needs to be narrower: >=4.6.8',
+          ],
+          warnings: [
+          ],
+        });
+    });
   });
 });

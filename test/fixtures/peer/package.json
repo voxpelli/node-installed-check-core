@@ -1,0 +1,9 @@
+{
+  "peerDependencies": {
+    "bar": ">=4.0.0"
+  },
+  "devDependencies": {
+    "bar": "^5.0.0",
+    "foo": "^1.0.0"
+  }
+}
