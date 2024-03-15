@@ -115,6 +115,25 @@ if (result.valid === true) {
 }
 ```
 
+### checkVersionRangeCollection()
+
+
+Wrapper around as [`checkVersionRange()`](#checkversionrange) that differs from it in three ways:
+
+* `key` is for a collection of range, eg `engines` rather than `engines.node`
+* The results for every individual version range is returned in an `object` keyed with the full key for that range, eg: `{ 'engines.node': ... }`
+* Accepts an additional optional `defaultKeys` option that's used if the collection for `key` is empty. Eg: `{ defaultKeys: ['node'] }`
+
+#### Syntax
+
+```ts
+checkVersionRangeCollection(mainPackage, key, installedDependencies, [options]) => VersionRangesResult
+```
+
+#### Arguments
+
+See main description of [`checkVersionRangeCollection()`](#checkversionrangecollection) and full docs for [`checkVersionRange()`](#checkversionrange).
+
 ### getInstalledData()
 
 Companion method to eg. `checkVersionRange()` that which makes it easy to get the correct data required. Not meant for any other use.
@@ -165,25 +184,27 @@ installedCheck(checks, options) => Promise<InstalledCheckResult>
 
 #### Arguments
 
-* `checks`: Type `('engine' | 'version')[]` – the checks to run
+* `checks`: Type `InstalledChecks[]` – the checks to run, an array of one or more of: `'engine'`, `'peer'`, `'version'`
 * `options`: Type `InstalledCheckOptions`
 
 #### Types
 
 ```ts
+type InstalledChecks = 'engine' | 'peer' | 'version'
 type InstalledCheckResult = { errors: string[], warnings: string[] }
 ```
 
 #### Checks
 
 * `engine` – will check that the installed modules comply with the [engines requirements](https://docs.npmjs.com/files/package.json#engines) of the `package.json` and suggest an alternative requirement if the installed modules don't comply.
+* `peer` – like `engine` but for `peerDependencies` instead. Will check that the promised `peerDependencies` are not wider than those of ones required dependencies.
 * `version` – will check that the installed modules comply with the version requirements set for them the `package.json`.
 
 #### Options
 
 * `path = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
 * `ignores = string[]` – names of modules to exclude from checks. Supports [`picomatch`](https://www.npmjs.com/package/picomatch) globbing syntax, eg. `@types/*`. (Not supported by `version` checks)
-* `noDev = false` – exclude dev dependencies from checks (Not supported by `version` checks)
+* `noDev = false` – exclude `devDependencies` from checks. `devDependencies` that are also in `peerDependencies` will not be ignored. (Not supported by `version` checks)
 * `strict = false` – converts most warnings into failures
 
 #### Example
@@ -210,7 +231,7 @@ performInstalledCheck(checks, mainPackage, installedDependencies, options) => Pr
 
 #### Arguments
 
-* `checks`: Type `('engine' | 'version')[]` – same as for [`installedCheck()`](#installedcheck)
+* `checks`: Type `InstalledChecks[]` – same as for [`installedCheck()`](#installedcheck)
 * `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
