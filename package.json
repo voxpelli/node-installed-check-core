@@ -22,13 +22,13 @@
     "build:0": "run-s clean",
     "build:1-declaration": "tsc -p declaration.tsconfig.json",
     "build": "run-s build:*",
-    "check:installed-check": "installed-check -i eslint-plugin-jsdoc -i knip -i linemod",
+    "check:installed-check": "installed-check",
     "check:knip": "knip",
     "check:lint": "eslint --report-unused-disable-directives .",
     "check:tsc": "tsc",
     "check:type-coverage": "type-coverage --detail --strict --at-least 99 --ignore-files 'test/*'",
     "check": "run-s clean && run-p check:*",
-    "clean:declarations-top": "rm -rf $(find . -maxdepth 1 -type f -name '*.d.ts*')",
+    "clean:declarations-top": "rm -rf $(find . -maxdepth 1 -type f -name '*.d.ts*' ! -name 'index.d.ts')",
     "clean:declarations-lib": "rm -rf $(find lib -type f -name '*.d.ts*' ! -name '*-types.d.ts')",
     "clean": "run-p clean:*",
     "prepare": "husky",
@@ -41,13 +41,13 @@
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.6.0"
   },
   "dependencies": {
     "@voxpelli/semver-set": "^5.0.2",
     "@voxpelli/typed-utils": "^1.6.0",
     "is-glob": "^4.0.3",
-    "list-installed": "^4.2.1",
+    "list-installed": "^5.1.0",
     "picomatch": "^4.0.1",
     "pony-cause": "^2.1.10",
     "read-pkg": "^9.0.1",

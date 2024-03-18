@@ -132,10 +132,11 @@ describe('installedCheck()', () => {
     });
 
     it('should handle ignores', async () => {
-      await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/invalid'),
-        ignore: ['invalid-alias*', 'invalid-dependency-definition'],
-      })
+      await installedCheck(
+        ['engine'],
+        { cwd: join(import.meta.url, 'fixtures/invalid') },
+        { ignore: ['invalid-alias*', 'invalid-dependency-definition'] }
+      )
         .should.eventually.deep.equal({
           'errors': [
             'invalid-engine: Narrower "engines.node" is needed: >=10.0.0',
@@ -161,6 +162,42 @@ describe('installedCheck()', () => {
           'errors': [
             'foo: Narrower "peerDependencies.bar" is needed: >=4.6.8',
             'Combined "peerDependencies.bar" needs to be narrower: >=4.6.8',
+          ],
+          warnings: [
+          ],
+        });
+    });
+
+    it('should check workspaces', async () => {
+      await installedCheck(['engine'], {
+        cwd: join(import.meta.url, 'fixtures/workspace'),
+      })
+        .should.eventually.deep.equal({
+          'errors': [
+            'root: foo: Narrower "engines.node" is needed: >=10.4.0',
+            'root: bar: Narrower "engines.node" is needed: >=12.0.0',
+            'root: Combined "engines.node" needs to be narrower: >=12.0.0',
+            '@voxpelli/workspace-a: foo: Narrower "engines.node" is needed: >=10.4.0',
+            '@voxpelli/workspace-a: bar: Narrower "engines.node" is needed: >=10.5.0',
+            '@voxpelli/workspace-a: abc: Narrower "engines.node" is needed: >=10.8.0',
+            '@voxpelli/workspace-a: Combined "engines.node" needs to be narrower: >=10.8.0',
+          ],
+          warnings: [
+          ],
+        });
+    });
+
+    it('should support lookup options when checking workspaces', async () => {
+      await installedCheck(['engine'], {
+        cwd: join(import.meta.url, 'fixtures/workspace'),
+        includeWorkspaceRoot: false,
+      })
+        .should.eventually.deep.equal({
+          'errors': [
+            '@voxpelli/workspace-a: foo: Narrower "engines.node" is needed: >=10.4.0',
+            '@voxpelli/workspace-a: bar: Narrower "engines.node" is needed: >=10.5.0',
+            '@voxpelli/workspace-a: abc: Narrower "engines.node" is needed: >=10.8.0',
+            '@voxpelli/workspace-a: Combined "engines.node" needs to be narrower: >=10.8.0',
           ],
           warnings: [
           ],
