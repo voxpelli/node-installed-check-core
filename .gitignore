@@ -13,5 +13,6 @@
 *.d.ts
 *.d.ts.map
 !/lib/**/*-types.d.ts
+!/index.d.ts
 
 # Library specific ones

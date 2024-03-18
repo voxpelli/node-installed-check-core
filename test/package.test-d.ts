@@ -3,13 +3,10 @@ import { expectTypeOf } from 'expect-type';
 import type { NormalizedPackageJson, PackageJson } from 'read-pkg';
 import type { NormalizedPackageJson as ListInstalledNormalizedPackageJson } from 'list-installed';
 
-import type { PackageJsonLike, InstalledDependencies } from '../lib/get-installed-data.js';
-import { getInstalledData } from '../lib/get-installed-data.js';
+import type { PackageJsonLike, InstalledDependencies } from '../lib/lookup-types.d.ts';
 
-const { pkg, installed } = await getInstalledData();
-
-expectTypeOf(pkg).toEqualTypeOf<NormalizedPackageJson>();
-expectTypeOf(installed).toEqualTypeOf<Map<string, ListInstalledNormalizedPackageJson>>();
+const pkg = {} as NormalizedPackageJson;
+const installed: Map<string, ListInstalledNormalizedPackageJson> = new Map();
 
 expectTypeOf(pkg).toMatchTypeOf<PackageJsonLike>();
 expectTypeOf(installed).toMatchTypeOf<InstalledDependencies>();

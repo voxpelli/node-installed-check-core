@@ -50,9 +50,9 @@ checkVersionRange(pkg, key, installed, [options]) => VersionRangeResult
 
 #### Arguments
 
-* `pkg`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `pkg`: Type [`PackageJsonLike`](#packagejsonlike) – the content of the `package.json` file to check
 * `key`: Type `string` – the key of the version range to check, eg `engines.node`
-* `installed`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
+* `installed`: Type [`InstalledDependencies`](#installeddependencies) – the `package.json` files of the installed dependencies
 * `options`: Type `VersionRangeOptions` – optional options
 
 #### Types
@@ -80,9 +80,16 @@ type VersionRangeResult = VersionRangeItem & {
 #### Example
 
 ```javascript
-import { checkVersionRange, getInstalledData } from 'installed-check-core';
+import { checkVersionRange } from 'installed-check-core';
+import { listInstalled } from 'list-installed';
+import { readPackage } from 'read-pkg';
 
-const { installed, pkg } = await getInstalledData(cwd);
+const cwd = '.';
+
+const [pkg, installed] = await Promise.all([
+  readPackage({ cwd }),
+  listInstalled(cwd),
+]);
 
 const result = await checkVersionRange(
   pkg,
@@ -134,44 +141,6 @@ checkVersionRangeCollection(pkg, key, installed, [options]) => VersionRangesResu
 
 See main description of [`checkVersionRangeCollection()`](#checkversionrangecollection) and full docs for [`checkVersionRange()`](#checkversionrange).
 
-### getInstalledData()
-
-Companion method to eg. `checkVersionRange()` that which makes it easy to get the correct data required. Not meant for any other use.
-
-Is a simple wrapper around [`read-pkg`](https://github.com/sindresorhus/read-pkg) and [`list-installed`](https://github.com/voxpelli/list-installed) – those or similar modules can be used directly just as well.
-
-#### Syntax
-
-```ts
-getInstalledData(cwd = '.') => Promise<InstalledData>
-```
-
-#### Arguments
-
-* `cwd` – specifies the path of the package to be checked, with its `package.json` expected to exist in that path and its installed `node_modules` as well.
-
-#### Types
-
-```ts
-// Subset of import('type-fest').PackageJson / import('read-pkg').NormalizedPackageJson
-export type PackageJsonLike = {
-  name?:    string | undefined;
-  version?: string | undefined;
-  engines?:              Record<string, string | undefined>;
-  dependencies?:         Record<string, string | undefined>;
-  devDependencies?:      Record<string, string | undefined>;
-  optionalDependencies?: Record<string, string | undefined>;
-  peerDependencies?:     Record<string, string | undefined>;
-};
-
-// A map is allowed since that's what import('list-installed).listInstalled returns
-export type InstalledDependencies = Map<string, PackageJsonLike> | Record<string, PackageJsonLike>;
-```
-
-#### Example
-
-See example of [`checkVersionRange()`](#checkversionrange)
-
 ### installedCheck()
 
 The full on `installed-check` experience, returning error and warning strings only.
@@ -179,18 +148,31 @@ The full on `installed-check` experience, returning error and warning strings on
 #### Syntax
 
 ```ts
-installedCheck(checks, options) => Promise<InstalledCheckResult>
+installedCheck(checks, [lookupOptions], [options]) => Promise<InstalledCheckResult>
 ```
 
 #### Arguments
 
 * `checks`: Type `InstalledChecks[]` – the checks to run, an array of one or more of: `'engine'`, `'peer'`, `'version'`
-* `options`: Type `InstalledCheckOptions`
+* `lookupOptions`: Type `LookupOptions` – optional – defaults to `cwd='.'` and `includeWorkspaceRoot: true`
+* `options`: Type `InstalledCheckOptions` – optional
 
 #### Types
 
 ```ts
+type LookupOptions = {
+    includeWorkspaceRoot?: boolean;
+    cwd?: string;
+    skipWorkspaces?: boolean;
+    workspace?: string[];
+};
 type InstalledChecks = 'engine' | 'peer' | 'version'
+type InstalledCheckOptions = {
+    ignore?: string[] | undefined;
+    noDev?: boolean | undefined;
+    prefix?: string | undefined;
+    strict?: boolean | undefined;
+};
 type InstalledCheckResult = { errors: string[], warnings: string[] }
 ```
 
@@ -221,7 +203,7 @@ const { errors, warnings } = await installedCheck(['engine', 'version'], {
 
 ### performInstalledCheck()
 
-Same as [`installedCheck()`](#installedcheck) but without looking up any data on its own but instead expects the data from [`getInstalledData()`](#getinstalleddata) or similar to be given to it.
+Similar to [`installedCheck()`](#installedcheck) but expects to be given package data instead of looking it up itself..
 
 #### Syntax
 
@@ -232,9 +214,33 @@ performInstalledCheck(checks, pkg, installed, options) => Promise<InstalledCheck
 #### Arguments
 
 * `checks`: Type `InstalledChecks[]` – same as for [`installedCheck()`](#installedcheck)
-* `pkg`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
-* `installed`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
+* `pkg`: Type [`PackageJsonLike`](#packagejsonlike) – the content of the `package.json` file to check
+* `installed`: Type [`InstalledDependencies`](#installeddependencies) – the `package.json` files of the installed dependencies
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `cwd` option
+
+## Types
+
+### PackageJsonLike
+
+```ts
+// Subset of import('type-fest').PackageJson / import('read-pkg').NormalizedPackageJson
+export type PackageJsonLike = {
+  name?:    string | undefined;
+  version?: string | undefined;
+  engines?:              Record<string, string | undefined>;
+  dependencies?:         Record<string, string | undefined>;
+  devDependencies?:      Record<string, string | undefined>;
+  optionalDependencies?: Record<string, string | undefined>;
+  peerDependencies?:     Record<string, string | undefined>;
+};
+```
+
+### InstalledDependencies
+
+```ts
+// A map is allowed since that's what import('list-installed).listInstalled returns
+export type InstalledDependencies = Map<string, PackageJsonLike> | Record<string, PackageJsonLike>;
+```
 
 ## Used by
 

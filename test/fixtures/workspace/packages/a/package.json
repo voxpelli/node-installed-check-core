@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "@voxpelli/workspace-a",
+  "engines": { "node": ">=10.0.0" },
+  "dependencies": {
+    "foo": "^1.0.0",
+    "bar": "^2.0.0",
+    "abc": "^1.0.0"
+  }
+}
