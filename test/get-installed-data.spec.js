@@ -14,16 +14,16 @@ describe('getInstalledData', () => {
   it('should return data', async () => {
     await getInstalledData().should.eventually
       .be.an('object')
-      .with.keys('installedDependencies', 'mainPackage')
-      .and.have.nested.property('mainPackage.name', 'installed-check-core');
+      .with.keys('installed', 'pkg')
+      .and.have.nested.property('pkg.name', 'installed-check-core');
   });
 
   it('should return data from path when specified', async () => {
     const result = await getInstalledData(join(import.meta.url, 'fixtures/valid'));
 
-    result.should.be.an('object').with.keys('installedDependencies', 'mainPackage');
+    result.should.be.an('object').with.keys('installed', 'pkg');
 
-    result.mainPackage.should.deep.equal({
+    result.pkg.should.deep.equal({
       _id: '@',
       engines: { node: '>=8.0.0' },
       dependencies: { foo: '^1.0.0' },
@@ -32,7 +32,7 @@ describe('getInstalledData', () => {
       version: '',
     });
 
-    [...result.installedDependencies.entries()].should.deep.equal([
+    [...result.installed.entries()].should.deep.equal([
       ['foo', {
         '_id': 'foo@1.0.0',
         'engines': {

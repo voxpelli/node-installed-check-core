@@ -6,13 +6,13 @@ import type { NormalizedPackageJson as ListInstalledNormalizedPackageJson } from
 import type { PackageJsonLike, InstalledDependencies } from '../lib/get-installed-data.js';
 import { getInstalledData } from '../lib/get-installed-data.js';
 
-const { mainPackage, installedDependencies } = await getInstalledData();
+const { pkg, installed } = await getInstalledData();
 
-expectTypeOf(mainPackage).toEqualTypeOf<NormalizedPackageJson>();
-expectTypeOf(installedDependencies).toEqualTypeOf<Map<string, ListInstalledNormalizedPackageJson>>();
+expectTypeOf(pkg).toEqualTypeOf<NormalizedPackageJson>();
+expectTypeOf(installed).toEqualTypeOf<Map<string, ListInstalledNormalizedPackageJson>>();
 
-expectTypeOf(mainPackage).toMatchTypeOf<PackageJsonLike>();
-expectTypeOf(installedDependencies).toMatchTypeOf<InstalledDependencies>();
+expectTypeOf(pkg).toMatchTypeOf<PackageJsonLike>();
+expectTypeOf(installed).toMatchTypeOf<InstalledDependencies>();
 
 expectTypeOf({} as ListInstalledNormalizedPackageJson).toMatchTypeOf<PackageJsonLike>();
 expectTypeOf({} as NormalizedPackageJson).toMatchTypeOf<PackageJsonLike>();

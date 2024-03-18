@@ -108,9 +108,9 @@ describe('checkVersionRange', () => {
 
   describe('checkDependencyRange()', () => {
     it('should handle engine ranges', () => {
-      const installedDependencies = new Map();
+      const installed = new Map();
 
-      installedDependencies.set('foo', {
+      installed.set('foo', {
         engines: { node: '^12 || ^14 || ^16' },
       });
 
