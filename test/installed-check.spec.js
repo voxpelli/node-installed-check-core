@@ -27,14 +27,14 @@ describe('installedCheck()', () => {
 
     it('should error on missing package.json file', async () => {
       await installedCheck(['engine', 'version'], {
-        path: join(import.meta.url, 'fixtures/missing-package-json'),
+        cwd: join(import.meta.url, 'fixtures/missing-package-json'),
       })
         .should.be.rejectedWith(/Failed to read package\.json/);
     });
 
     it('should error on inability to list installed modules', async () => {
       await installedCheck(['engine', 'version'], {
-        path: join(import.meta.url, 'fixtures/missing-node-modules'),
+        cwd: join(import.meta.url, 'fixtures/missing-node-modules'),
       })
         .should.be.rejectedWith(/Failed to list installed modules/);
     });
@@ -43,7 +43,7 @@ describe('installedCheck()', () => {
   describe('functionality', () => {
     it('should return an empty result on valid setup', async () => {
       await installedCheck(['engine', 'version'], {
-        path: join(import.meta.url, 'fixtures/valid'),
+        cwd: join(import.meta.url, 'fixtures/valid'),
       })
         .should.eventually.deep.equal({
           errors: [],
@@ -53,7 +53,7 @@ describe('installedCheck()', () => {
 
     it('should return an empty result on an aliased setup', async () => {
       await installedCheck(['engine', 'version'], {
-        path: join(import.meta.url, 'fixtures/aliased'),
+        cwd: join(import.meta.url, 'fixtures/aliased'),
       })
         .should.eventually.deep.equal({
           errors: [],
@@ -63,7 +63,7 @@ describe('installedCheck()', () => {
 
     it('should return errors and warnings on invalid setup', async () => {
       await installedCheck(['engine', 'version'], {
-        path: join(import.meta.url, 'fixtures/invalid'),
+        cwd: join(import.meta.url, 'fixtures/invalid'),
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -95,7 +95,7 @@ describe('installedCheck()', () => {
 
     it('should check engine even when no target engines are set', async () => {
       await installedCheck(['engine'], {
-        path: join(import.meta.url, 'fixtures/missing-engines'),
+        cwd: join(import.meta.url, 'fixtures/missing-engines'),
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -110,7 +110,7 @@ describe('installedCheck()', () => {
 
     it('should not suggest an engine configuration when engines are incompatible', async () => {
       await installedCheck(['engine'], {
-        path: join(import.meta.url, 'fixtures/incompatible-engines'),
+        cwd: join(import.meta.url, 'fixtures/incompatible-engines'),
       })
         .should.eventually.deep.equal({
           'errors': [
@@ -123,7 +123,7 @@ describe('installedCheck()', () => {
 
     it('should handle engine ranges', async () => {
       await installedCheck(['engine'], {
-        path: join(import.meta.url, 'fixtures/engine-ranges'),
+        cwd: join(import.meta.url, 'fixtures/engine-ranges'),
       })
         .should.eventually.deep.equal({
           'errors': [],
@@ -133,7 +133,7 @@ describe('installedCheck()', () => {
 
     it('should handle ignores', async () => {
       await installedCheck(['engine'], {
-        path: join(import.meta.url, 'fixtures/invalid'),
+        cwd: join(import.meta.url, 'fixtures/invalid'),
         ignore: ['invalid-alias*', 'invalid-dependency-definition'],
       })
         .should.eventually.deep.equal({
@@ -155,7 +155,7 @@ describe('installedCheck()', () => {
 
     it('should check peer dependencies', async () => {
       await installedCheck(['peer'], {
-        path: join(import.meta.url, 'fixtures/peer'),
+        cwd: join(import.meta.url, 'fixtures/peer'),
       })
         .should.eventually.deep.equal({
           'errors': [

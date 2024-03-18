@@ -18,7 +18,7 @@ describe('getInstalledData', () => {
       .and.have.nested.property('pkg.name', 'installed-check-core');
   });
 
-  it('should return data from path when specified', async () => {
+  it('should return data from cwd when specified', async () => {
     const result = await getInstalledData(join(import.meta.url, 'fixtures/valid'));
 
     result.should.be.an('object').with.keys('installed', 'pkg');
