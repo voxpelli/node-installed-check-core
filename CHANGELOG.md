@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.0.1](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.0...v8.0.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* move `read-pkg` to dev dependencies ([9ddb0c0](https://github.com/voxpelli/node-installed-check-core/commit/9ddb0c079af022622f06408135b0c38afad95ed3))
+* remove unused `pony-cause` dependency ([aa5b5b6](https://github.com/voxpelli/node-installed-check-core/commit/aa5b5b6005f115b359b056e060f6a8a1dbd9988a))
+
 ## [8.0.0](https://github.com/voxpelli/node-installed-check-core/compare/v7.1.4...v8.0.0) (2024-03-18)
 
 
