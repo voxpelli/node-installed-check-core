@@ -49,7 +49,6 @@
     "is-glob": "^4.0.3",
     "list-installed": "^5.1.0",
     "picomatch": "^4.0.1",
-    "read-pkg": "^9.0.1",
     "semver": "^7.6.0"
   },
   "devDependencies": {
@@ -82,6 +81,7 @@
     "knip": "^5.1.1",
     "mocha": "^10.3.0",
     "npm-run-all2": "^6.1.2",
+    "read-pkg": "^9.0.1",
     "type-coverage": "^2.27.1",
     "typescript": "~5.4.2",
     "validate-conventional-commit": "^1.0.3"
