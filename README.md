@@ -45,14 +45,14 @@ The rich version range check that `installed-check` itself uses.
 #### Syntax
 
 ```ts
-checkVersionRange(mainPackage, key, installedDependencies, [options]) => VersionRangeResult
+checkVersionRange(pkg, key, installed, [options]) => VersionRangeResult
 ```
 
 #### Arguments
 
-* `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `pkg`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `key`: Type `string` – the key of the version range to check, eg `engines.node`
-* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
+* `installed`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `VersionRangeOptions` – optional options
 
 #### Types
@@ -82,12 +82,12 @@ type VersionRangeResult = VersionRangeItem & {
 ```javascript
 import { checkVersionRange, getInstalledData } from 'installed-check-core';
 
-const { installedDependencies, mainPackage } = await getInstalledData(path);
+const { installed, pkg } = await getInstalledData(path);
 
 const result = await checkVersionRange(
-  mainPackage,
+  pkg,
   'engines.node',
-  installedDependencies,
+  installed,
   {
     expectedInDependencies: true,
     noDev: true,
@@ -127,7 +127,7 @@ Wrapper around as [`checkVersionRange()`](#checkversionrange) that differs from 
 #### Syntax
 
 ```ts
-checkVersionRangeCollection(mainPackage, key, installedDependencies, [options]) => VersionRangesResult
+checkVersionRangeCollection(pkg, key, installed, [options]) => VersionRangesResult
 ```
 
 #### Arguments
@@ -226,14 +226,14 @@ Same as [`installedCheck()`](#installedcheck) but without looking up any data on
 #### Syntax
 
 ```ts
-performInstalledCheck(checks, mainPackage, installedDependencies, options) => Promise<InstalledCheckResult>
+performInstalledCheck(checks, pkg, installed, options) => Promise<InstalledCheckResult>
 ```
 
 #### Arguments
 
 * `checks`: Type `InstalledChecks[]` – same as for [`installedCheck()`](#installedcheck)
-* `mainPackage`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
-* `installedDependencies`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
+* `pkg`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
+* `installed`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
 * `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
 
 ## Used by
