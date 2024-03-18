@@ -1,13 +1,8 @@
 import chai from 'chai';
-import { ErrorWithCause } from 'pony-cause';
 
 import { checkVersionRange, checkDependencyRange } from '../lib/check-version-range.js';
 
 const should = chai.should();
-
-process.on('unhandledRejection', cause => {
-  throw new ErrorWithCause('Unhandled rejection', { cause });
-});
 
 const baseVersionRangeArguments = () => /** @type {const} */ ([
   {
