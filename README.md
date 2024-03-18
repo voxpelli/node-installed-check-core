@@ -82,7 +82,7 @@ type VersionRangeResult = VersionRangeItem & {
 ```javascript
 import { checkVersionRange, getInstalledData } from 'installed-check-core';
 
-const { installed, pkg } = await getInstalledData(path);
+const { installed, pkg } = await getInstalledData(cwd);
 
 const result = await checkVersionRange(
   pkg,
@@ -143,12 +143,12 @@ Is a simple wrapper around [`read-pkg`](https://github.com/sindresorhus/read-pkg
 #### Syntax
 
 ```ts
-getInstalledData(path = '.') => Promise<InstalledData>
+getInstalledData(cwd = '.') => Promise<InstalledData>
 ```
 
 #### Arguments
 
-* `path` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
+* `cwd` – specifies the path of the package to be checked, with its `package.json` expected to exist in that path and its installed `node_modules` as well.
 
 #### Types
 
@@ -202,7 +202,7 @@ type InstalledCheckResult = { errors: string[], warnings: string[] }
 
 #### Options
 
-* `path = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
+* `cwd = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
 * `ignores = string[]` – names of modules to exclude from checks. Supports [`picomatch`](https://www.npmjs.com/package/picomatch) globbing syntax, eg. `@types/*`. (Not supported by `version` checks)
 * `noDev = false` – exclude `devDependencies` from checks. `devDependencies` that are also in `peerDependencies` will not be ignored. (Not supported by `version` checks)
 * `strict = false` – converts most warnings into failures
@@ -213,7 +213,7 @@ type InstalledCheckResult = { errors: string[], warnings: string[] }
 import { installedCheck } from 'installed-check-core';
 
 const { errors, warnings } = await installedCheck(['engine', 'version'], {
-  path: 'path/to/module',
+  cwd: 'path/to/module',
   ignore: ['foo'],
   noDev: true,
 });
@@ -234,7 +234,7 @@ performInstalledCheck(checks, pkg, installed, options) => Promise<InstalledCheck
 * `checks`: Type `InstalledChecks[]` – same as for [`installedCheck()`](#installedcheck)
 * `pkg`: Type `PackageJsonLike` – the content of the `package.json` file to check, see [`getInstalledData()`](#getinstalleddata)
 * `installed`: Type `InstalledDependencies` – the installed dependencies to use when checking, see [`getInstalledData()`](#getinstalleddata)
-* `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `path` option
+* `options`: Type `InstalledCheckOptions` – same as for [`installedCheck()`](#installedcheck), but without the `cwd` option
 
 ## Used by
 
