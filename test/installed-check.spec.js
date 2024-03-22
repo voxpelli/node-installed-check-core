@@ -27,11 +27,14 @@ describe('installedCheck()', () => {
         .should.be.rejectedWith(/Failed to read package\.json/);
     });
 
-    it('should error on inability to list installed modules', async () => {
+    it('should not error on missing node_modules', async () => {
       await installedCheck(['engine', 'version'], {
         cwd: join(import.meta.url, 'fixtures/missing-node-modules'),
       })
-        .should.be.rejectedWith(/Failed to list installed modules/);
+        .should.eventually.deep.equal({
+          errors: ["foo: Dependency is not installed. Can't check its version"],
+          warnings: ["foo: Dependency is not installed. Can't check its requirements"],
+        });
     });
   });
 
