@@ -59,9 +59,9 @@ checkVersionRange(pkg, key, installed, [options]) => VersionRangeResult
 
 ```ts
 type VersionRangeItem = {
-  valid: boolean|undefined,
-  suggested?: string|undefined,
-  note: string|undefined,
+  valid: boolean | undefined,
+  suggested?: string | undefined,
+  note: string | undefined,
 }
 type VersionRangeResult = VersionRangeItem & {
   packageNotes: Array<
@@ -161,17 +161,17 @@ installedCheck(checks, [lookupOptions], [options]) => Promise<InstalledCheckResu
 
 ```ts
 type LookupOptions = {
-    includeWorkspaceRoot?: boolean;
-    cwd?: string;
-    skipWorkspaces?: boolean;
-    workspace?: string[];
+  cwd?: string | undefined;
+  includeWorkspaceRoot?: boolean | undefined;
+  skipWorkspaces?: boolean | undefined;
+  workspace?: string[] | undefined;
 };
 type InstalledChecks = 'engine' | 'peer' | 'version'
 type InstalledCheckOptions = {
-    ignore?: string[] | undefined;
-    noDev?: boolean | undefined;
-    prefix?: string | undefined;
-    strict?: boolean | undefined;
+  ignore?: string[] | undefined;
+  noDev?: boolean | undefined;
+  prefix?: string | undefined;
+  strict?: boolean | undefined;
 };
 type InstalledCheckResult = { errors: string[], warnings: string[] }
 ```
