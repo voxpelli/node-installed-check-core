@@ -23,10 +23,13 @@ Exists as a CLI as well: [installed-check](https://www.npmjs.com/package/install
 ```javascript
 import { installedCheck } from 'installed-check-core';
 
-const { errors } = await installedCheck(['version']);
+const { errors, suggestions } = await installedCheck(['version']);
 
 if (result.errors.length) {
   console.error('Dependency errors: \n\n' + result.errors.join('\n') + '\n');
+}
+if (result.suggestions.length) {
+  console.error('Suggestions: \n\n' + result.suggestions.join('\n') + '\n');
 }
 ```
 
@@ -173,7 +176,11 @@ type InstalledCheckOptions = {
   prefix?: string | undefined;
   strict?: boolean | undefined;
 };
-type InstalledCheckResult = { errors: string[], warnings: string[] }
+type InstalledCheckResult = {
+  errors: string[],
+  warnings: string[],
+  suggestions: string[],
+  }
 ```
 
 #### Checks
@@ -194,7 +201,7 @@ type InstalledCheckResult = { errors: string[], warnings: string[] }
 ```javascript
 import { installedCheck } from 'installed-check-core';
 
-const { errors, warnings } = await installedCheck(['engine', 'version'], {
+const { errors, warnings, suggestions } = await installedCheck(['engine', 'version'], {
   cwd: 'path/to/module',
   ignore: ['foo'],
   noDev: true,

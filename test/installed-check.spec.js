@@ -33,6 +33,7 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           errors: ["foo: Dependency is not installed. Can't check its version"],
+          suggestions: [],
           warnings: ["foo: Dependency is not installed. Can't check its requirements"],
         });
     });
@@ -45,6 +46,7 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           errors: [],
+          suggestions: [],
           warnings: [],
         });
     });
@@ -55,6 +57,7 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           errors: [],
+          suggestions: [],
           warnings: [],
         });
     });
@@ -71,6 +74,8 @@ describe('installedCheck()', () => {
             'invalid-module-version: Invalid version, expected a ^1.0.0',
             'invalid-engine: Narrower "engines.node" is needed: >=10.0.0',
             'invalid-engine: Narrower "engines.abc" is needed: >=1.0.0',
+          ],
+          suggestions: [
             'Combined "engines.node" needs to be narrower: >=10.0.0',
             'Combined "engines.abc" needs to be narrower: >=1.0.0',
           ],
@@ -98,6 +103,8 @@ describe('installedCheck()', () => {
         .should.eventually.deep.equal({
           'errors': [
             'foo: Narrower "engines.node" is needed: >=8.0.0',
+          ],
+          suggestions: [
             'Combined "engines.node" needs to be narrower: >=8.0.0',
           ],
           warnings: [
@@ -113,6 +120,8 @@ describe('installedCheck()', () => {
         .should.eventually.deep.equal({
           'errors': [
             'foo: Incompatible "engines.node" requirement: <6.0.0',
+          ],
+          suggestions: [
             'Incompatible combined "engines.node" requirements.',
           ],
           warnings: [],
@@ -125,6 +134,7 @@ describe('installedCheck()', () => {
       })
         .should.eventually.deep.equal({
           'errors': [],
+          suggestions: [],
           warnings: [],
         });
     });
@@ -139,6 +149,8 @@ describe('installedCheck()', () => {
           'errors': [
             'invalid-engine: Narrower "engines.node" is needed: >=10.0.0',
             'invalid-engine: Narrower "engines.abc" is needed: >=1.0.0',
+          ],
+          suggestions: [
             'Combined "engines.node" needs to be narrower: >=10.0.0',
             'Combined "engines.abc" needs to be narrower: >=1.0.0',
           ],
@@ -159,6 +171,8 @@ describe('installedCheck()', () => {
         .should.eventually.deep.equal({
           'errors': [
             'foo: Narrower "peerDependencies.bar" is needed: >=4.6.8',
+          ],
+          suggestions: [
             'Combined "peerDependencies.bar" needs to be narrower: >=4.6.8',
           ],
           warnings: [
@@ -174,10 +188,12 @@ describe('installedCheck()', () => {
           'errors': [
             'root: foo: Narrower "engines.node" is needed: >=10.4.0',
             'root: bar: Narrower "engines.node" is needed: >=12.0.0',
-            'root: Combined "engines.node" needs to be narrower: >=12.0.0',
             '@voxpelli/workspace-a: foo: Narrower "engines.node" is needed: >=10.4.0',
             '@voxpelli/workspace-a: bar: Narrower "engines.node" is needed: >=10.5.0',
             '@voxpelli/workspace-a: abc: Narrower "engines.node" is needed: >=10.8.0',
+          ],
+          suggestions: [
+            'root: Combined "engines.node" needs to be narrower: >=12.0.0',
             '@voxpelli/workspace-a: Combined "engines.node" needs to be narrower: >=10.8.0',
           ],
           warnings: [
@@ -195,6 +211,8 @@ describe('installedCheck()', () => {
             '@voxpelli/workspace-a: foo: Narrower "engines.node" is needed: >=10.4.0',
             '@voxpelli/workspace-a: bar: Narrower "engines.node" is needed: >=10.5.0',
             '@voxpelli/workspace-a: abc: Narrower "engines.node" is needed: >=10.8.0',
+          ],
+          suggestions: [
             '@voxpelli/workspace-a: Combined "engines.node" needs to be narrower: >=10.8.0',
           ],
           warnings: [
