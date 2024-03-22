@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.2](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.1...v8.0.2) (2024-03-22)
+
+
+### Bug Fixes
+
+* allow `undefined` in all option keys ([0734e0f](https://github.com/voxpelli/node-installed-check-core/commit/0734e0ff6b792abea029dea5309b77194c6c86f5))
+
 ## [8.0.1](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.0...v8.0.1) (2024-03-18)
 
 
