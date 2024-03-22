@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.1.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.3...v8.1.0) (2024-03-22)
+
+
+### Features
+
+* return `suggestions` separate from `errors` ([1723b7b](https://github.com/voxpelli/node-installed-check-core/commit/1723b7be1d165a1bc9865454ddac45115392ccf9))
+
 ## [8.0.3](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.2...v8.0.3) (2024-03-22)
 
 
