@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.3](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.2...v8.0.3) (2024-03-22)
+
+
+### Bug Fixes
+
+* ensure use of latest `list-installed` ([76439fc](https://github.com/voxpelli/node-installed-check-core/commit/76439fcf6cc953a1a30a3b0d3efa8a6e94b8b38a))
+
 ## [8.0.2](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.1...v8.0.2) (2024-03-22)
 
 
