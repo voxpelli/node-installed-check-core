@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import { join } from 'desm';
 
-import { installedCheck } from '../lib/installed-check.js';
+import { ROOT, installedCheck } from '../lib/installed-check.js';
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -35,6 +35,7 @@ describe('installedCheck()', () => {
           errors: ["foo: Dependency is not installed. Can't check its version"],
           suggestions: [],
           warnings: ["foo: Dependency is not installed. Can't check its requirements"],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
   });
@@ -48,6 +49,7 @@ describe('installedCheck()', () => {
           errors: [],
           suggestions: [],
           warnings: [],
+          workspaceSuccess: { [ROOT]: true },
         });
     });
 
@@ -59,6 +61,7 @@ describe('installedCheck()', () => {
           errors: [],
           suggestions: [],
           warnings: [],
+          workspaceSuccess: { [ROOT]: true },
         });
     });
 
@@ -93,6 +96,7 @@ describe('installedCheck()', () => {
             'invalid-module-version: Missing "engines.bar"',
             'invalid-module-version: Missing "engines.abc"',
           ],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
 
@@ -110,6 +114,7 @@ describe('installedCheck()', () => {
           warnings: [
             'Missing "engines.node" in main package',
           ],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
 
@@ -125,6 +130,7 @@ describe('installedCheck()', () => {
             'Incompatible combined "engines.node" requirements.',
           ],
           warnings: [],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
 
@@ -136,6 +142,7 @@ describe('installedCheck()', () => {
           'errors': [],
           suggestions: [],
           warnings: [],
+          workspaceSuccess: { [ROOT]: true },
         });
     });
 
@@ -161,6 +168,7 @@ describe('installedCheck()', () => {
             'invalid-module-version: Missing "engines.bar"',
             'invalid-module-version: Missing "engines.abc"',
           ],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
 
@@ -177,6 +185,7 @@ describe('installedCheck()', () => {
           ],
           warnings: [
           ],
+          workspaceSuccess: { [ROOT]: false },
         });
     });
 
@@ -198,6 +207,10 @@ describe('installedCheck()', () => {
           ],
           warnings: [
           ],
+          workspaceSuccess: {
+            [ROOT]: false,
+            '@voxpelli/workspace-a': false,
+          },
         });
     });
 
@@ -217,6 +230,9 @@ describe('installedCheck()', () => {
           ],
           warnings: [
           ],
+          workspaceSuccess: {
+            '@voxpelli/workspace-a': false,
+          },
         });
     });
   });
