@@ -47,7 +47,7 @@
     "@voxpelli/semver-set": "^5.0.2",
     "@voxpelli/typed-utils": "^1.6.0",
     "is-glob": "^4.0.3",
-    "list-installed": "^5.2.1",
+    "list-installed": "^5.2.2",
     "picomatch": "^4.0.1",
     "semver": "^7.6.0"
   },
