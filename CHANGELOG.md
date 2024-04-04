@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.2.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.1.0...v8.2.0) (2024-04-04)
+
+
+### Features
+
+* return workspace success status ([#127](https://github.com/voxpelli/node-installed-check-core/issues/127)) ([9950e8a](https://github.com/voxpelli/node-installed-check-core/commit/9950e8ab1ac6a06e5b938aaf1095fa802f496e35))
+* use latest `list-installed` to support pnpm ([5dde95a](https://github.com/voxpelli/node-installed-check-core/commit/5dde95ab976fb5aa2204ca810c46330f74d72c4b))
+
 ## [8.1.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.0.3...v8.1.0) (2024-03-22)
 
 
