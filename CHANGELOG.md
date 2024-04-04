@@ -1,5 +1,14 @@
 # Changelog
 
+## [8.2.2](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.1...v8.2.2) (2024-04-04)
+
+
+### Bug Fixes
+
+* handle pnpm `workspace:` version range ([01ff126](https://github.com/voxpelli/node-installed-check-core/commit/01ff126a26e9b2e271195730b68eccdc1cea8dbe))
+* ignore `@types/*` packages in engine check ([f87823e](https://github.com/voxpelli/node-installed-check-core/commit/f87823e05788e6eebb67d888456582c669ee9d70))
+* latest `list-installed`, supports symlinks ([3c432bf](https://github.com/voxpelli/node-installed-check-core/commit/3c432bf5353ed64c0e4439cb58aca0e5da9aa1e7))
+
 ## [8.2.1](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.0...v8.2.1) (2024-04-04)
 
 
