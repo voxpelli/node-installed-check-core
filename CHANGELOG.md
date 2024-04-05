@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.3.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.3...v8.3.0) (2024-04-05)
+
+
+### Features
+
+* add a `fix` option for autofixing ([#134](https://github.com/voxpelli/node-installed-check-core/issues/134)) ([5f0ab6c](https://github.com/voxpelli/node-installed-check-core/commit/5f0ab6c8ade1f77f7784e7fc5b13b50e609cbfbf))
+
 ## [8.2.3](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.2...v8.2.3) (2024-04-05)
 
 

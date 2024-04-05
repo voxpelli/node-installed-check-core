@@ -1,6 +1,6 @@
 {
   "name": "installed-check-core",
-  "version": "8.2.3",
+  "version": "8.3.0",
   "description": "Checks that all dependencies in your package.json have supported versions installed",
   "homepage": "http://github.com/voxpelli/node-installed-check-core",
   "repository": {
