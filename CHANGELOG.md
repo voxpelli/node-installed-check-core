@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.2.3](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.2...v8.2.3) (2024-04-05)
+
+
+### Bug Fixes
+
+* update to `list-installed@5.3.0` ([6791ba5](https://github.com/voxpelli/node-installed-check-core/commit/6791ba5cb1c69cadfeaf7f6442f59293dc5e97da))
+
 ## [8.2.2](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.1...v8.2.2) (2024-04-04)
 
 
