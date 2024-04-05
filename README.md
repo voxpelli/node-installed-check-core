@@ -137,7 +137,7 @@ Wrapper around as [`checkVersionRange()`](#checkversionrange) that differs from 
 #### Syntax
 
 ```ts
-checkVersionRangeCollection(pkg, key, installed, [options]) => VersionRangesResult
+checkVersionRangeCollection(pkg, key, installed, [options]) => VersionRangeCollectionResult
 ```
 
 #### Arguments
@@ -165,12 +165,14 @@ installedCheck(checks, [lookupOptions], [options]) => Promise<InstalledCheckResu
 ```ts
 type LookupOptions = {
   cwd?: string | undefined;
+  ignorePaths?: string[] | undefined;
   includeWorkspaceRoot?: boolean | undefined;
   skipWorkspaces?: boolean | undefined;
   workspace?: string[] | undefined;
 };
 type InstalledChecks = 'engine' | 'peer' | 'version'
 type InstalledCheckOptions = {
+  fix?: boolean | undefined;
   ignore?: string[] | undefined;
   noDev?: boolean | undefined;
   prefix?: string | undefined;
@@ -180,7 +182,7 @@ type InstalledCheckResult = {
   errors: string[],
   warnings: string[],
   suggestions: string[],
-  }
+}
 ```
 
 #### Checks
@@ -189,9 +191,13 @@ type InstalledCheckResult = {
 * `peer` – like `engine` but for `peerDependencies` instead. Will check that the promised `peerDependencies` are not wider than those of ones required dependencies.
 * `version` – will check that the installed modules comply with the version requirements set for them the `package.json`.
 
+#### Lookup options
+
+The same as from [`read-workspaces`](https://github.com/voxpelli/read-workspaces?tab=readme-ov-file#readworkspacesoptions) / [`list-installed`](https://github.com/voxpelli/list-installed?tab=readme-ov-file#workspacelookupoptions)
+
 #### Options
 
-* `cwd = '.'` – specifies the path to the package to be checked, with its `package.json` expected to be there and its installed `node_modules` as well.
+* `fix = false` – when set it will modify the `package.json` files to apply fixes whenever possible
 * `ignores = string[]` – names of modules to exclude from checks. Supports [`picomatch`](https://www.npmjs.com/package/picomatch) globbing syntax, eg. `@types/*`. (Not supported by `version` checks)
 * `noDev = false` – exclude `devDependencies` from checks. `devDependencies` that are also in `peerDependencies` will not be ignored. (Not supported by `version` checks)
 * `strict = false` – converts most warnings into failures
@@ -215,7 +221,7 @@ Similar to [`installedCheck()`](#installedcheck) but expects to be given package
 #### Syntax
 
 ```ts
-performInstalledCheck(checks, pkg, installed, options) => Promise<InstalledCheckResult>
+performInstalledCheck(checks, pkg, installed, options) => Promise<PerformInstalledCheckResult>
 ```
 
 #### Arguments
