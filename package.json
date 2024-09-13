@@ -22,7 +22,7 @@
     "build:0": "run-s clean",
     "build:1-declaration": "tsc -p declaration.tsconfig.json",
     "build": "run-s build:*",
-    "check:installed-check": "installed-check -i @voxpelli/eslint-config -i eslint",
+    "check:installed-check": "installed-check -i @voxpelli/eslint-config -i eslint -i @voxpelli/semver-set",
     "check:knip": "knip",
     "check:lint": "eslint",
     "check:tsc": "tsc",
@@ -44,10 +44,10 @@
     "node": ">=18.6.0"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^5.0.2",
-    "@voxpelli/typed-utils": "^1.9.0",
+    "@voxpelli/semver-set": "^6.0.0",
+    "@voxpelli/typed-utils": "^1.10.2",
     "is-glob": "^4.0.3",
-    "list-installed": "^5.3.0",
+    "list-installed": "^5.3.1",
     "picomatch": "^4.0.1",
     "semver": "^7.6.0"
   },
