@@ -1,5 +1,25 @@
 # Changelog
 
+## [8.3.1](https://github.com/voxpelli/node-installed-check-core/compare/v8.3.0...v8.3.1) (2024-09-13)
+
+
+### 🩹 Fixes
+
+* **deps:** update dependencies ([044b685](https://github.com/voxpelli/node-installed-check-core/commit/044b6857741b2f4823afe1bd4f37557f20fbe8a9))
+
+
+### 🧹 Chores
+
+* **deps:** update `expect-type` ([a1eec7e](https://github.com/voxpelli/node-installed-check-core/commit/a1eec7e4b54ad56e3d96815828113677bc6d82c8))
+* **deps:** update dependency @voxpelli/tsconfig to v12 ([#136](https://github.com/voxpelli/node-installed-check-core/issues/136)) ([08283f2](https://github.com/voxpelli/node-installed-check-core/commit/08283f2aa15ec3283545b36e30535bec1a98d9d7))
+* **deps:** update dependency validate-conventional-commit to ^1.0.4 ([#138](https://github.com/voxpelli/node-installed-check-core/issues/138)) ([9d81f9d](https://github.com/voxpelli/node-installed-check-core/commit/9d81f9d276809cfe534e80b80184458d13747683))
+* **deps:** update dev dependencies ([0e4d8ad](https://github.com/voxpelli/node-installed-check-core/commit/0e4d8adedd867e208b0b07089208208f9acd18ee))
+* **deps:** update test dependencies ([5251939](https://github.com/voxpelli/node-installed-check-core/commit/52519396f4cd5913346f6c775eacd9bce1d9953c))
+* **deps:** use latest `@types/picomatch` ([3bf10a9](https://github.com/voxpelli/node-installed-check-core/commit/3bf10a9c2aa3ba07eee67371b45fe34efbd14f7b))
+* remove unintended `packageManager` ([2def4f7](https://github.com/voxpelli/node-installed-check-core/commit/2def4f7f37bb3a7b4a227a41c68cfb77e6a899c0))
+* update to neostandard linting ([e9129c2](https://github.com/voxpelli/node-installed-check-core/commit/e9129c2465af38cfcbff605c66d484b6e13a3282))
+* use extracted utility functions ([4a1c818](https://github.com/voxpelli/node-installed-check-core/commit/4a1c8189af967dc37a1b87502a40c2cfa5062f06))
+
 ## [8.3.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.2.3...v8.3.0) (2024-04-05)
 
 
