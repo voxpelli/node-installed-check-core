@@ -19,8 +19,8 @@ expectTypeOf({} as ListInstalledNormalizedPackageJson).toMatchTypeOf<NormalizedP
 
 expectTypeOf({}).toMatchTypeOf<PackageJsonLike>();
 expectTypeOf({} as object).toMatchTypeOf<PackageJsonLike>();
-expectTypeOf({} as Record<string,any>).toMatchTypeOf<PackageJsonLike>();
-expectTypeOf({} as Record<string,unknown>).toMatchTypeOf<PackageJsonLike>();
+expectTypeOf({} as Record<string, any>).toMatchTypeOf<PackageJsonLike>();
+expectTypeOf({} as Record<string, unknown>).toMatchTypeOf<PackageJsonLike>();
 
 // @ts-expect-error
 expectTypeOf({ name: true }).toMatchTypeOf<PackageJsonLike>;
@@ -29,4 +29,5 @@ expectTypeOf(new Date()).toMatchTypeOf<PackageJsonLike>;
 // @ts-expect-error
 expectTypeOf([]).toMatchTypeOf<PackageJsonLike>;
 // @ts-expect-error
+// eslint-disable-next-line unicorn/no-null
 expectTypeOf(null).toMatchTypeOf<PackageJsonLike>;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { cp } from 'node:fs/promises';
 
 import chai from 'chai';
