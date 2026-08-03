@@ -1,5 +1,23 @@
 # Changelog
 
+## [9.0.0](https://github.com/voxpelli/node-installed-check-core/compare/v8.3.1...v9.0.0) (2026-08-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Minimum Node.js version raised from 18.6.0 to 22.22.2. Consumers on older Node.js versions must upgrade.
+
+### 🧹 Chores
+
+* **deps:** update `@types/picomatch` ([cf2940f](https://github.com/voxpelli/node-installed-check-core/commit/cf2940f68ae0a6c552dceaa66f61529229f1281c))
+* **deps:** update dependency @voxpelli/semver-set to v7 ([#146](https://github.com/voxpelli/node-installed-check-core/issues/146)) ([fe10ed9](https://github.com/voxpelli/node-installed-check-core/commit/fe10ed9155eaa0dee00557e01b617dd00ee68a00))
+* **deps:** update dependency @voxpelli/typed-utils to v5 ([#151](https://github.com/voxpelli/node-installed-check-core/issues/151)) ([2838719](https://github.com/voxpelli/node-installed-check-core/commit/283871918b2d40425b1af3b1388235ea9b97db79))
+* **deps:** update dependency list-installed to v7 ([#154](https://github.com/voxpelli/node-installed-check-core/issues/154)) ([001fd74](https://github.com/voxpelli/node-installed-check-core/commit/001fd748aad38cf30dfc27fac5b974bf9d8aaecd))
+* **deps:** update dependency read-pkg to v10 ([#147](https://github.com/voxpelli/node-installed-check-core/issues/147)) ([51e0f8a](https://github.com/voxpelli/node-installed-check-core/commit/51e0f8a1c8935677d7b4650ab93d22b07f7e84c8))
+* **deps:** update dependency tempy to ^3.2.0 ([#148](https://github.com/voxpelli/node-installed-check-core/issues/148)) ([6a9d63e](https://github.com/voxpelli/node-installed-check-core/commit/6a9d63e64705d1be2a693adae497298775e1ca3d))
+* **deps:** update type dependencies ([#125](https://github.com/voxpelli/node-installed-check-core/issues/125)) ([3936cdb](https://github.com/voxpelli/node-installed-check-core/commit/3936cdb410f96b8cd773fd72ea8883285137eec8))
+* require Node.js &gt;=22.22.2 and modernize test stack ([d18ce2f](https://github.com/voxpelli/node-installed-check-core/commit/d18ce2fd0dbfe6b234e698f021fedb90fb23406d))
+
 ## [8.3.1](https://github.com/voxpelli/node-installed-check-core/compare/v8.3.0...v8.3.1) (2024-09-13)
 
 
