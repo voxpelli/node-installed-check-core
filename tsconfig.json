@@ -5,10 +5,10 @@
   ],
   "include": [
     "lib/**/*",
-    "test/**/*",
+    "test/**/*"
   ],
   "exclude": [
-    "typetests/**/*",
+    "typetests/**/*"
   ],
   "compilerOptions": {
     "types": ["node"]
