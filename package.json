@@ -46,7 +46,7 @@
     "typescript": ">=5.9"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^6.0.0",
+    "@voxpelli/semver-set": "^7.0.0",
     "@voxpelli/typed-utils": "^1.10.2",
     "is-glob": "^4.0.3",
     "list-installed": "^5.3.1",
