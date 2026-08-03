@@ -1,9 +1,9 @@
 import { expectTypeOf } from 'expect-type';
 
-import type { NormalizedPackageJson, PackageJson } from 'read-pkg';
 import type { NormalizedPackageJson as ListInstalledNormalizedPackageJson } from 'list-installed';
+import type { NormalizedPackageJson, PackageJson } from 'read-pkg';
 
-import type { PackageJsonLike, InstalledDependencies } from '../lib/lookup-types.d.ts';
+import type { InstalledDependencies, PackageJsonLike } from '../lib/lookup-types.d.ts';
 
 const pkg = {} as NormalizedPackageJson;
 const installed: Map<string, ListInstalledNormalizedPackageJson> = new Map();

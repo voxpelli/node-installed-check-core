@@ -1,7 +1,7 @@
-import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { checkVersionRange, checkDependencyRange } from '../lib/check-version-range.js';
+import { checkDependencyRange, checkVersionRange } from '../lib/check-version-range.js';
 
 const baseVersionRangeArguments = () => /** @type {const} */ ([
   {
@@ -102,12 +102,6 @@ describe('checkVersionRange', () => {
 
   describe('checkDependencyRange()', () => {
     it('should handle engine ranges', () => {
-      const installed = new Map();
-
-      installed.set('foo', {
-        engines: { node: '^12 || ^14 || ^16' },
-      });
-
       const result = checkDependencyRange(
         '^12 || ^14 || ^16',
         'engines.node',

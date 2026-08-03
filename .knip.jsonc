@@ -1,8 +1,7 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
   "entry": [
-    "index.js!",
-    "index.d.ts!",
+    "index.d.ts",
     "test/**/*.test-d.ts",
     "test/**/*.spec.js"
   ]

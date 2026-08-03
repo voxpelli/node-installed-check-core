@@ -1,10 +1,10 @@
-import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { cp } from 'node:fs/promises';
 import path from 'node:path';
+import { describe, it } from 'node:test';
 import { temporaryDirectoryTask } from 'tempy';
 
-import { ROOT, installedCheck } from '../lib/installed-check.js';
+import { installedCheck, ROOT } from '../lib/installed-check.js';
 
 describe('installedCheck() fix', () => {
   it('should be able to automatically fix a project', async () => {

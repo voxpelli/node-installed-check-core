@@ -1,8 +1,8 @@
-import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
+import { describe, it } from 'node:test';
 
-import { ROOT, installedCheck } from '../lib/installed-check.js';
+import { installedCheck, ROOT } from '../lib/installed-check.js';
 
 describe('installedCheck()', () => {
   describe('basic errors', () => {
