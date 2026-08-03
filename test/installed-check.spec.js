@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { join } from 'desm';
+import path from 'node:path';
 
 import { ROOT, installedCheck } from '../lib/installed-check.js';
 
@@ -25,7 +25,7 @@ describe('installedCheck()', () => {
     it('should error on missing package.json file', async () => {
       await assert.rejects(
         () => installedCheck(['engine', 'version'], {
-          cwd: join(import.meta.url, 'fixtures/missing-package-json'),
+          cwd: path.join(import.meta.dirname, 'fixtures/missing-package-json'),
         }),
         /Failed to read package\.json/
       );
@@ -33,7 +33,7 @@ describe('installedCheck()', () => {
 
     it('should not error on missing node_modules', async () => {
       const result = await installedCheck(['engine', 'version'], {
-        cwd: join(import.meta.url, 'fixtures/missing-node-modules'),
+        cwd: path.join(import.meta.dirname, 'fixtures/missing-node-modules'),
       });
       assert.deepStrictEqual(result, {
         errors: ["foo: Dependency is not installed. Can't check its version"],
@@ -47,7 +47,7 @@ describe('installedCheck()', () => {
   describe('functionality', () => {
     it('should return an empty result on valid setup', async () => {
       const result = await installedCheck(['engine', 'version'], {
-        cwd: join(import.meta.url, 'fixtures/valid'),
+        cwd: path.join(import.meta.dirname, 'fixtures/valid'),
       });
       assert.deepStrictEqual(result, {
         errors: [],
@@ -59,7 +59,7 @@ describe('installedCheck()', () => {
 
     it('should return an empty result on an aliased setup', async () => {
       const result = await installedCheck(['engine', 'version'], {
-        cwd: join(import.meta.url, 'fixtures/aliased'),
+        cwd: path.join(import.meta.dirname, 'fixtures/aliased'),
       });
       assert.deepStrictEqual(result, {
         errors: [],
@@ -71,7 +71,7 @@ describe('installedCheck()', () => {
 
     it('should return errors and warnings on invalid setup', async () => {
       const result = await installedCheck(['engine', 'version'], {
-        cwd: join(import.meta.url, 'fixtures/invalid'),
+        cwd: path.join(import.meta.dirname, 'fixtures/invalid'),
       });
       assert.deepStrictEqual(result, {
         'errors': [
@@ -106,7 +106,7 @@ describe('installedCheck()', () => {
 
     it('should check engine even when no target engines are set', async () => {
       const result = await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/missing-engines'),
+        cwd: path.join(import.meta.dirname, 'fixtures/missing-engines'),
       });
       assert.deepStrictEqual(result, {
         'errors': [
@@ -124,7 +124,7 @@ describe('installedCheck()', () => {
 
     it('should not suggest an engine configuration when engines are incompatible', async () => {
       const result = await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/incompatible-engines'),
+        cwd: path.join(import.meta.dirname, 'fixtures/incompatible-engines'),
       });
       assert.deepStrictEqual(result, {
         'errors': [
@@ -140,7 +140,7 @@ describe('installedCheck()', () => {
 
     it('should handle engine ranges', async () => {
       const result = await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/engine-ranges'),
+        cwd: path.join(import.meta.dirname, 'fixtures/engine-ranges'),
       });
       assert.deepStrictEqual(result, {
         'errors': [],
@@ -153,7 +153,7 @@ describe('installedCheck()', () => {
     it('should handle ignores', async () => {
       const result = await installedCheck(
         ['engine'],
-        { cwd: join(import.meta.url, 'fixtures/invalid') },
+        { cwd: path.join(import.meta.dirname, 'fixtures/invalid') },
         { ignore: ['invalid-alias*', 'invalid-dependency-definition'] }
       );
       assert.deepStrictEqual(result, {
@@ -178,7 +178,7 @@ describe('installedCheck()', () => {
 
     it('should check peer dependencies', async () => {
       const result = await installedCheck(['peer'], {
-        cwd: join(import.meta.url, 'fixtures/peer'),
+        cwd: path.join(import.meta.dirname, 'fixtures/peer'),
       });
       assert.deepStrictEqual(result, {
         'errors': [
@@ -195,7 +195,7 @@ describe('installedCheck()', () => {
 
     it('should check workspaces', async () => {
       const result = await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/workspace'),
+        cwd: path.join(import.meta.dirname, 'fixtures/workspace'),
       });
       assert.deepStrictEqual(result, {
         'errors': [
@@ -220,7 +220,7 @@ describe('installedCheck()', () => {
 
     it('should support lookup options when checking workspaces', async () => {
       const result = await installedCheck(['engine'], {
-        cwd: join(import.meta.url, 'fixtures/workspace'),
+        cwd: path.join(import.meta.dirname, 'fixtures/workspace'),
         includeWorkspaceRoot: false,
       });
       assert.deepStrictEqual(result, {

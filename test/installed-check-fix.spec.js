@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { cp } from 'node:fs/promises';
-import { join } from 'desm';
+import path from 'node:path';
 import { temporaryDirectoryTask } from 'tempy';
 
 import { ROOT, installedCheck } from '../lib/installed-check.js';
@@ -9,7 +9,7 @@ import { ROOT, installedCheck } from '../lib/installed-check.js';
 describe('installedCheck() fix', () => {
   it('should be able to automatically fix a project', async () => {
     await temporaryDirectoryTask(async (tmpDir) => {
-      await cp(join(import.meta.url, 'fixtures/workspace'), tmpDir, {
+      await cp(path.join(import.meta.dirname, 'fixtures/workspace'), tmpDir, {
         recursive: true,
       });
 
