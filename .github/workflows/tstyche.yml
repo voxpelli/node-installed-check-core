@@ -19,5 +19,5 @@ jobs:
   type-check:
     uses: voxpelli/ghatemplates/.github/workflows/reusable-tstyche.yml@main
     with:
-      ts-versions: ${{ github.event.schedule && 'next' || '>=5.9,next' }}
+      ts-versions: ${{ github.event.schedule && 'next' || '>=5.9' }}
       ts-libs: 'es2024;esnext'
