@@ -1,13 +1,16 @@
 {
-  "extends": "@voxpelli/tsconfig/node18.json",
+  "extends": "@voxpelli/tsconfig/node22.json",
   "files": [
     "index.js"
   ],
   "include": [
     "lib/**/*",
-    "test/**/*",
+    "test/**/*"
+  ],
+  "exclude": [
+    "typetests/**/*"
   ],
   "compilerOptions": {
-    "types": ["node", "mocha"]
+    "types": ["node"]
   }
 }

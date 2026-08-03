@@ -1,8 +1,7 @@
-import chai from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { checkVersionRange, checkDependencyRange } from '../lib/check-version-range.js';
-
-const should = chai.should();
+import { checkDependencyRange, checkVersionRange } from '../lib/check-version-range.js';
 
 const baseVersionRangeArguments = () => /** @type {const} */ ([
   {
@@ -18,7 +17,7 @@ const baseVersionRangeArguments = () => /** @type {const} */ ([
 
 describe('checkVersionRange', () => {
   it('should suggest new version range', async () => {
-    checkVersionRange(...baseVersionRangeArguments()).should.deep.equal({
+    assert.deepStrictEqual(checkVersionRange(...baseVersionRangeArguments()), {
       valid: false,
       note: undefined,
       packageNotes: [
@@ -41,7 +40,7 @@ describe('checkVersionRange', () => {
 
   describe('checkVersionRange()', () => {
     it('should handle engine ranges', () => {
-      checkVersionRange(
+      assert.deepStrictEqual(checkVersionRange(
         {
           engines: { node: '^12 || ^14 || ^16' },
           dependencies: { foo: '^1.0.0' },
@@ -50,7 +49,7 @@ describe('checkVersionRange', () => {
         {
           foo: { engines: { node: '^12 || ^14 || ^16' } },
         }
-      ).should.deep.equal({
+      ), {
         valid: true,
         note: undefined,
         packageNotes: [],
@@ -59,12 +58,12 @@ describe('checkVersionRange', () => {
     });
 
     it('should handle ignore array', async () => {
-      checkVersionRange(
+      assert.deepStrictEqual(checkVersionRange(
         ...baseVersionRangeArguments(),
         {
           ignore: ['bar'],
         }
-      ).should.deep.equal({
+      ), {
         valid: false,
         note: undefined,
         packageNotes: [
@@ -80,12 +79,12 @@ describe('checkVersionRange', () => {
     });
 
     it('should handle ignore callback', async () => {
-      checkVersionRange(
+      assert.deepStrictEqual(checkVersionRange(
         ...baseVersionRangeArguments(),
         {
           ignore: name => name === 'bar',
         }
-      ).should.deep.equal({
+      ), {
         valid: false,
         note: undefined,
         packageNotes: [
@@ -103,12 +102,6 @@ describe('checkVersionRange', () => {
 
   describe('checkDependencyRange()', () => {
     it('should handle engine ranges', () => {
-      const installed = new Map();
-
-      installed.set('foo', {
-        engines: { node: '^12 || ^14 || ^16' },
-      });
-
       const result = checkDependencyRange(
         '^12 || ^14 || ^16',
         'engines.node',
@@ -117,7 +110,7 @@ describe('checkVersionRange', () => {
         }
       );
 
-      should.not.exist(result);
+      assert.strictEqual(result, undefined);
     });
   });
 });
