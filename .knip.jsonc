@@ -3,6 +3,7 @@
   "entry": [
     "index.js!",
     "index.d.ts!",
-    "test/**/*.test-d.ts"
+    "test/**/*.test-d.ts",
+    "test/**/*.spec.js"
   ]
 }

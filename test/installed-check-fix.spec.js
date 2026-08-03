@@ -1,15 +1,10 @@
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { cp } from 'node:fs/promises';
-
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
 import { join } from 'desm';
 import { temporaryDirectoryTask } from 'tempy';
 
 import { ROOT, installedCheck } from '../lib/installed-check.js';
-
-chai.use(chaiAsPromised);
-chai.should();
 
 describe('installedCheck() fix', () => {
   it('should be able to automatically fix a project', async () => {
@@ -18,8 +13,9 @@ describe('installedCheck() fix', () => {
         recursive: true,
       });
 
-      await installedCheck(['engine'], { cwd: tmpDir }, { fix: true })
-        .should.eventually.deep.equal({
+      assert.deepStrictEqual(
+        await installedCheck(['engine'], { cwd: tmpDir }, { fix: true }),
+        {
           'errors': [
             'root: foo: Narrower "engines.node" is needed: >=10.4.0',
             'root: bar: Narrower "engines.node" is needed: >=12.0.0',
@@ -37,18 +33,21 @@ describe('installedCheck() fix', () => {
             [ROOT]: false,
             '@voxpelli/workspace-a': false,
           },
-        });
+        }
+      );
 
-      return installedCheck(['engine'], { cwd: tmpDir });
-    })
-      .should.eventually.deep.equal({
-        'errors': [],
-        suggestions: [],
-        warnings: [],
-        workspaceSuccess: {
-          [ROOT]: true,
-          '@voxpelli/workspace-a': true,
-        },
-      });
+      assert.deepStrictEqual(
+        await installedCheck(['engine'], { cwd: tmpDir }),
+        {
+          'errors': [],
+          suggestions: [],
+          warnings: [],
+          workspaceSuccess: {
+            [ROOT]: true,
+            '@voxpelli/workspace-a': true,
+          },
+        }
+      );
+    });
   });
 });
