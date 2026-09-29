@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@types/is-glob": "^4.0.4",
-    "@types/node": "^22.20.1",
+    "@types/node": "^22.20.4",
     "@types/picomatch": "^4.0.3",
     "@types/semver": "^7.8.0",
     "@voxpelli/eslint-config": "^25.1.0",
@@ -69,7 +69,7 @@
     "read-pkg": "^10.1.0",
     "tempy": "^3.2.0",
     "tstyche": "^7.2.2",
-    "type-coverage": "^2.30.1",
+    "type-coverage": "^2.30.2",
     "typescript": "~6.0.3",
     "validate-conventional-commit": "^2.0.0"
   }
