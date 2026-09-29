@@ -64,7 +64,7 @@
     "eslint": "^9.39.5",
     "husky": "^9.1.7",
     "installed-check": "^10.0.1",
-    "knip": "^6.31.0",
+    "knip": "^6.38.0",
     "npm-run-all2": "^9.0.3",
     "read-pkg": "^10.1.0",
     "tempy": "^3.2.0",
