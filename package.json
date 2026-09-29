@@ -68,7 +68,7 @@
     "npm-run-all2": "^9.0.3",
     "read-pkg": "^10.1.0",
     "tempy": "^3.2.0",
-    "tstyche": "^7.2.2",
+    "tstyche": "^7.2.5",
     "type-coverage": "^2.30.1",
     "typescript": "~6.0.3",
     "validate-conventional-commit": "^2.0.0"
